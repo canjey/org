@@ -51,7 +51,13 @@ export default function Sidebar() {
                 </div>
             </AppBar>
             <Drawer
+            PaperProps={{
+                sx: {
+                  backgroundColor: "#5495D0",
+                  color: "white",
+                }}}
                 sx={{
+                    backgroundColor:'#5495D0',
                     width: drawerWidth,
                     flexShrink: 0,
                     '& .MuiDrawer-paper': {
