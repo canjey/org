@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { styled, alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -22,8 +23,10 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import OrgTable from './Table';
 import {Link} from "react-router-dom"
+import OrgTable from "./OrgTable";
+import SearchIcon from '@mui/icons-material/Search';
+
 
 export default function Stats(){
     return (
@@ -34,11 +37,8 @@ export default function Stats(){
                >
                    <Toolbar />
                    <Typography component='h4' sx={{ fontFamily: 'Montaga', fontSize: '34px' }}>
-                       Welcome Carol
-                   </Typography>
-                   <Typography component='p' sx={{ fontFamily: 'inter', fontSize: '20px', color: 'green' }}>
-                       Here is what is happening in your account
-                   </Typography>
+                   Organisation Manager
+                    </Typography>
    
                    <Box sx={{ marginTop: '30px' }}>
                        <Grid container spacing={36} >
@@ -46,7 +46,7 @@ export default function Stats(){
                                <Card sx={{ maxWidth: 275, height: 120, width: 271, borderRadius: 5 }}>
                                    <CardContent>
                                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                           Subscribed Services
+                                           Total Services
                                        </Typography>
                                        <Typography variant="h5" component="div"sx={{display:'flex', }} >
                                            32
@@ -63,7 +63,7 @@ export default function Stats(){
                                <Card sx={{ maxWidth: 275, height: 120, width: 271, borderRadius: 5 }}>
                                    <CardContent>
                                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                           Subscribed Services
+                                           Total Organisations
                                        </Typography>
                                        <Typography variant="h5" component="div"sx={{display:'flex', }} >
                                            32
@@ -80,7 +80,7 @@ export default function Stats(){
                                <Card sx={{ maxWidth: 275, height: 120, width: 271, borderRadius: 5 }}>
                                    <CardContent>
                                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                           Subscribed Services
+                                           Total Earnings
                                        </Typography>
                                        <Typography variant="h5" component="div"sx={{display:'flex', }} >
                                            32
@@ -97,7 +97,7 @@ export default function Stats(){
                                <Card sx={{ maxWidth: 275, height: 120, width: 271, borderRadius: 5 }}>
                                    <CardContent>
                                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                           Subscribed Services
+                                           New Organisations
                                        </Typography>
                                        <Typography variant="h5" component="div"sx={{display:'flex', }} >
                                            32
@@ -119,9 +119,7 @@ export default function Stats(){
                                    <CardContent>
                                       <img src='Temp.png' />
                                    </CardContent>
-                                   <CardActions>
-                                       <Button size="small">Learn More</Button>
-                                   </CardActions>
+                                  
                                </Card>
                            </Grid>
                            <Grid item xs={2}>
@@ -129,15 +127,13 @@ export default function Stats(){
                                    <CardContent>
                                        <img src='Temp1.png' />
                                    </CardContent>
-                                   <CardActions>
-                                       <Button size="small">Learn More</Button>
-                                   </CardActions>
+                                   
                                </Card>
                            </Grid>
                        </Grid>
                    </Box>
                    <Box sx={{marginTop:'20px'}}>
-                   <OrgTable />
+                   
                    </Box>
                  
                </Box>

@@ -23,6 +23,8 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import OrgTable from './Table';
+import {Link} from "react-router-dom";
+
 
 // import Stats from './Stats';
 
@@ -69,9 +71,9 @@ export default function Sidebar() {
                 anchor="left"
             >
                 <Toolbar />
-                <Divider />
-                <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                <Divider  sx={{marginTop:'60px'}} />
+                {/* <List sx={{marginTop:'100px'}}>
+                    {['Dashboard', 'Organisation', 'Services'].map((text, index) => (
                         <ListItem key={text} disablePadding>
                             <ListItemButton>
                                 <ListItemIcon>
@@ -81,10 +83,27 @@ export default function Sidebar() {
                             </ListItemButton>
                         </ListItem>
                     ))}
-                </List>
+                </List> */}
+                <Grid sx={{marginTop:'30px', padding:'40px'}}>
+                <Typography sx={{display:'flex'}}>
+                    <InboxIcon /> <Typography sx={{ marginLeft:'10px'}}><Link to ='/'>Dashboard </Link>
+                        </Typography>
+                </Typography>
+                <Typography  sx={{marginTop:'20px', display:'flex'}}>
+                    <MailIcon />
+                    <Typography sx={{ marginLeft:'10px'}}><Link to ='/organisations'>Organisation </Link>
+                    </Typography> 
+                </Typography>
+                <Typography  sx={{marginTop:'20px', display:'flex'}}>
+                    <InboxIcon />
+                    <Typography sx={{ marginLeft:'10px'}}><Link to ='/services'>Services </Link>
+                        </Typography>
+                     
+                </Typography>
+                </Grid>
                 <Divider />
-                <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                <List sx={{marginTop:'300px'}}>
+                    {['Settings'].map((text, index) => (
                         <ListItem key={text} disablePadding>
                             <ListItemButton>
                                 <ListItemIcon>
@@ -96,169 +115,7 @@ export default function Sidebar() {
                     ))}
                 </List>
             </Drawer>
-            <Box
-                component="main"
-                sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-            >
-                <Toolbar />
-                <Typography component='h4' sx={{ fontFamily: 'Montaga', fontSize: '34px' }}>
-                    Welcome Carol
-                </Typography>
-                <Typography component='p' sx={{ fontFamily: 'inter', fontSize: '20px', color: 'green' }}>
-                    Here is what is happening in your account
-                </Typography>
-
-                <Box sx={{ marginTop: '30px' }}>
-                    <Grid container spacing={36} >
-                        <Grid item xs={2}>
-                            <Card sx={{ maxWidth: 275, height: 120, width: 271, borderRadius: 5 }}>
-                                <CardContent>
-                                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                        Word of the Day
-                                    </Typography>
-                                    <Typography variant="h5" component="div">
-                                        benevolent
-                                    </Typography>
-                                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                        adjective
-                                    </Typography>
-                                    <Typography variant="body2">
-                                        well meaning and kindly.
-                                        <br />
-                                        {'"a benevolent smile"'}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small">Learn More</Button>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                        <Grid item xs={2}>
-                            <Card sx={{ maxWidth: 275, height: 120, width: 271 }}>
-                                <CardContent>
-                                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                        Word of the Day
-                                    </Typography>
-                                    <Typography variant="h5" component="div">
-                                        benevolent
-                                    </Typography>
-                                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                        adjective
-                                    </Typography>
-                                    <Typography variant="body2">
-                                        well meaning and kindly.
-                                        <br />
-                                        {'"a benevolent smile"'}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small">Learn More</Button>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                        <Grid item xs={2}>
-                            <Card sx={{ maxWidth: 275, height: 120, width: 271 }}>
-                                <CardContent>
-                                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                        Word of the Day
-                                    </Typography>
-                                    <Typography variant="h5" component="div">
-                                        benevolent
-                                    </Typography>
-                                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                        adjective
-                                    </Typography>
-                                    <Typography variant="body2">
-                                        well meaning and kindly.
-                                        <br />
-                                        {'"a benevolent smile"'}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small">Learn More</Button>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                        <Grid item xs={2}>
-                            <Card sx={{ maxWidth: 275, height: 120, width: 271 }}>
-                                <CardContent>
-                                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                        Word of the Day
-                                    </Typography>
-                                    <Typography variant="h5" component="div">
-                                        benevolent
-                                    </Typography>
-                                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                        adjective
-                                    </Typography>
-                                    <Typography variant="body2">
-                                        well meaning and kindly.
-                                        <br />
-                                        {'"a benevolent smile"'}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small">Learn More</Button>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                    </Grid>
-                </Box>
-                <Box sx={{marginTop: '50px'}}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={8}>
-                            <Card sx={{ minWidth: 275, width: 790, height: 300 }}>
-                                <CardContent>
-                                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                        Word of the Day
-                                    </Typography>
-                                    <Typography variant="h5" component="div">
-                                        be
-                                    </Typography>
-                                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                        adjective
-                                    </Typography>
-                                    <Typography variant="body2">
-                                        well meaning and kindly.
-                                        <br />
-                                        {'"a benevolent smile"'}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small">Learn More</Button>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                        <Grid item xs={2}>
-                            <Card sx={{ minWidth: 275, width: 300, height: 300 }}>
-                                <CardContent>
-                                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                        Word of the Day
-                                    </Typography>
-                                    <Typography variant="h5" component="div">
-                                        be
-                                    </Typography>
-                                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                        adjective
-                                    </Typography>
-                                    <Typography variant="body2">
-                                        well meaning and kindly.
-                                        <br />
-                                        {'"a benevolent smile"'}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small">Learn More</Button>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                    </Grid>
-                </Box>
-                <Box sx={{marginTop:'20px'}}>
-                <OrgTable />
-                </Box>
-              
-            </Box>
+           
 
         </Box>
     );
