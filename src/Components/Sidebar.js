@@ -24,14 +24,28 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import OrgTable from './Table';
 import {Link} from "react-router-dom";
-
+import SettingsIcon from '@mui/icons-material/Settings';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import ReceiptIcon from '@mui/icons-material/Receipt';
+import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 // import Stats from './Stats';
 
 const drawerWidth = 240;
 
+const theme = createTheme({
+    typography: {
+      fontFamily: 'inter',
+      fontSize:'30px'
+    },
+  })
+
 export default function Sidebar() {
     return (
+        <>
+        <ThemeProvider theme={theme}>
+        
 
         <Box sx={{ display: 'flex' }}>
 
@@ -71,52 +85,37 @@ export default function Sidebar() {
                 anchor="left"
             >
                 <Toolbar />
-                <Divider  sx={{marginTop:'60px'}} />
-                {/* <List sx={{marginTop:'100px'}}>
-                    {['Dashboard', 'Organisation', 'Services'].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                </ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
-                </List> */}
+                <Divider  sx={{marginTop:'10px'}} />
+
                 <Grid sx={{marginTop:'30px', padding:'40px'}}>
                 <Typography sx={{display:'flex'}}>
-                    <InboxIcon /> <Typography sx={{ marginLeft:'10px'}}><Link to ='/'>Dashboard </Link>
+                    <BarChartIcon /> <Typography sx={{ marginLeft:'10px'}}><Link to ='/' style={{textDecoration:'none', color:'white'}}>Dashboard </Link>
                         </Typography>
                 </Typography>
                 <Typography  sx={{marginTop:'20px', display:'flex'}}>
-                    <MailIcon />
-                    <Typography sx={{ marginLeft:'10px'}}><Link to ='/organisations'>Organisation </Link>
+                    <PermContactCalendarIcon />
+                    <Typography sx={{ marginLeft:'10px'}}><Link to ='/organizations' style={{textDecoration:'none', color:'white'}}>Organisation </Link>
                     </Typography> 
                 </Typography>
                 <Typography  sx={{marginTop:'20px', display:'flex'}}>
-                    <InboxIcon />
-                    <Typography sx={{ marginLeft:'10px'}}><Link to ='/services'>Services </Link>
+                    <ReceiptIcon />
+                    <Typography sx={{ marginLeft:'10px'}}><Link to ='/services' style={{textDecoration:'none', color:'white'}}>Services </Link>
                         </Typography>
                      
                 </Typography>
                 </Grid>
                 <Divider />
-                <List sx={{marginTop:'300px'}}>
-                    {['Settings'].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                </ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
-                </List>
+                <Typography  sx={{marginTop:'300px', display:'flex',  padding:'40px',}}>
+                    <SettingsIcon />
+                    <Typography sx={{ marginLeft:'10px'}}><Link to ='/services' style={{textDecoration:'none', color:'white'}}>Settings </Link>
+                        </Typography>
+                     
+                </Typography>
             </Drawer>
            
 
         </Box>
+        </ThemeProvider>
+        </>
     );
 }

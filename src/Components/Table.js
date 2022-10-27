@@ -10,6 +10,10 @@ import { Typography } from "@mui/material";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Avatar from "@mui/material/Avatar";
+import Box from '@mui/material/Box';
+import {Link} from "react-router-dom";
+
+
 
 function createData(name, calories, fat) {
   return { name, calories, fat };
@@ -25,20 +29,41 @@ const rows = [
 
 export default function OrgTable() {
   return (
+    <>
+     <Box >
+    <Typography
+              align="left"
+              sx={{ marginTop: "10px", padding: "10px", display:'flex', justifyContent:'space-between' }}
+            >
+              Organizations Available
+              <Typography
+              align="left"
+              sx={{ marginTop: "-10px", padding: "10px", display:'flex', justifyContent:'space-between'  }}
+            >
+              <Link to ='./organizations' style={{textDecoration:'none'}}><VisibilityOffIcon sx={{color:'blue'}}/>
+               View all
+               </Link>
+               <Link to='./organizations/addorganization' style={{textDecoration:'none'}}>
+               <Typography
+               
+              align="left"
+              sx={{ marginTop: "-10px", padding: "10px",  display:'flex', }}
+            >
+              <AddCircleIcon sx={{color:'blue'}} />
+              <Typography> Add Organization </Typography> 
+            </Typography>
+            </Link>
+            </Typography>
+           
+            </Typography>
+            
+            
+
+    </Box>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 250, width: 1200 }} aria-label="simple table">
         <TableHead>
-          <TableRow sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography
-              align="left"
-              sx={{ marginTop: "10px", padding: "10px" }}
-            >
-              Organizations Available
-            </Typography>
-            {/* <Typography sx={{justifyContent: 'flex-end', marginLeft:'200px',}}><VisibilityOffIcon/> View All
-            <AddCircleIcon /> Add Organizations
-            </Typography> */}
-          </TableRow>
+      
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell align="right">Account Status</TableCell>
@@ -49,7 +74,7 @@ export default function OrgTable() {
           {rows.map(row =>
             <TableRow
               key={row.name}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              
             >
               <TableCell component="th" scope="row" sx={{ display: "flex" }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
@@ -71,5 +96,6 @@ export default function OrgTable() {
         </TableBody>
       </Table>
     </TableContainer>
+    </>
   );
 }

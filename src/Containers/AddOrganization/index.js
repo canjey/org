@@ -1,7 +1,7 @@
-import * as React from 'react';
+import * as React from "react";
 import Sidebar from '../../Components/Sidebar'
-import Stats from '../../Components/Organisation/Stats.js'
-import OrgTable from '../../Components/Organisation/OrgTable.js'
+import OrganizationForm from '../../Components/AddOrganization/OrganizationForm'
+
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
@@ -11,17 +11,15 @@ const theme = createTheme({
       fontSize:'38px'
     },
   })
-export default function Organisation() {
+
+export default function AddOrganization(){
     return(
         <>
         <ThemeProvider theme={theme}>
-        <Sidebar />
-        <Stats />
-        <OrgTable />
+        <Sidebar/>
+        <OrganizationForm/>
         </ThemeProvider>
         </>
-
     )
+
 }
-
-

@@ -33,7 +33,7 @@ export default function Stats(){
                    sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 ,marginLeft:'250px' }}
                >
                    <Toolbar />
-                   <Typography component='h4' sx={{ fontFamily: 'Montaga', fontSize: '34px' }}>
+                   <Typography component='h4' sx={{ fontFamily: 'Montaga', fontSize: '30px' }}>
                        Welcome Carol
                    </Typography>
                    <Typography component='p' sx={{ fontFamily: 'inter', fontSize: '20px', color: 'green' }}>

@@ -26,18 +26,28 @@ import Grid from '@mui/material/Grid';
 import {Link} from "react-router-dom"
 import OrgTable from "./OrgTable";
 import SearchIcon from '@mui/icons-material/Search';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+
+
+const theme = createTheme({
+    typography: {
+      fontFamily: 'inter',
+      fontSize:'30px'
+    },
+  })
 
 export default function Stats(){
     return (
         <>
+        <ThemeProvider theme={theme}>
         <Box
                    component="main"
                    sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 ,marginLeft:'250px' }}
                >
                    <Toolbar />
-                   <Typography component='h4' sx={{ fontFamily: 'Montaga', fontSize: '34px' }}>
-                   Organisation Manager
+                   <Typography component='h4' sx={{ fontFamily: 'inter', fontSize: '25px' }}>
+                   Organization Manager
                     </Typography>
    
                    <Box sx={{ marginTop: '30px' }}>
@@ -117,7 +127,7 @@ export default function Stats(){
                            <Grid item xs={8}>
                                <Card sx={{ minWidth: 275, width: 790, height: 300 }}>
                                    <CardContent>
-                                      <img src='Temp.png' />
+                                      <img src='Temp2.png' />
                                    </CardContent>
                                   
                                </Card>
@@ -125,7 +135,7 @@ export default function Stats(){
                            <Grid item xs={2}>
                                <Card sx={{ minWidth: 275, width: 300, height: 300 }}>
                                    <CardContent>
-                                       <img src='Temp1.png' />
+                                       <img src='Temp3.png' />
                                    </CardContent>
                                    
                                </Card>
@@ -137,6 +147,7 @@ export default function Stats(){
                    </Box>
                  
                </Box>
+               </ThemeProvider>
        </>
     )
    
