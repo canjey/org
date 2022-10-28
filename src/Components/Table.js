@@ -30,7 +30,7 @@ const rows = [
 export default function OrgTable() {
   return (
     <>
-     <Box >
+     <Box sx={{marginLeft:'250px'}} >
     <Typography
               align="left"
               sx={{ marginTop: "10px", padding: "10px", display:'flex', justifyContent:'space-between' }}
@@ -61,7 +61,7 @@ export default function OrgTable() {
 
     </Box>
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 250, width: 1200 }} aria-label="simple table">
+      <Table sx={{marginLeft:'250px', minWidth: 250, width: 1200 }} aria-label="simple table">
         <TableHead>
       
           <TableRow>
