@@ -178,7 +178,8 @@ export default function OrgTable() {
               key={row.name}
              
             >
-              <TableCell component="th" scope="row" sx={{ display: "flex" }}>
+              <Link to='./aboutpage' style={{textDecoration:'none'}}>
+                <TableCell component="th" scope="row" sx={{ display: "flex" }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                 <Typography sx={{ padding: "2px" }}>
                   {row.name}
@@ -187,6 +188,7 @@ export default function OrgTable() {
                   </Typography>
                 </Typography>
               </TableCell>
+              </Link>
               <TableCell align="right">
                 {row.calories}
               </TableCell>

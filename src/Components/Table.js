@@ -65,9 +65,9 @@ export default function OrgTable() {
         <TableHead>
       
           <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Account Status</TableCell>
-            <TableCell align="right">Subscribed Services</TableCell>
+            <TableCell xs={4}sm={4}>Name</TableCell>
+            <TableCell xs={4} align="right">Account Status</TableCell>
+            <TableCell xs={4} align="right">Subscribed Services</TableCell>
           </TableRow>
         </TableHead>
         <TableBody >

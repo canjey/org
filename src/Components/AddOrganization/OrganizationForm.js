@@ -23,19 +23,18 @@ export default function OrganizationForm() {
             Add Organization Form
         </Typography>
         <Box>
-      <div style={{justifyContent:'space-between'}}>
+      <div style={{justifyContent:'space-between', marginTop:'10px'}}>
         <TextField
           required
           id="outlined-required"
           label="Company Name"
-          defaultValue="Hello World"
           sx={{width:500}}
         />
         <TextField
           required
           id="outlined-required"
           label="No of Users"
-          defaultValue="Hello World"
+          
         />
        
       </div>
@@ -44,19 +43,19 @@ export default function OrganizationForm() {
           required
           id="outlined-required"
           label="Country"
-          defaultValue="Kenya"
+          
         />
         <TextField
           required
           id="outlined-required"
           label="Location"
-          defaultValue="Nairobi.."
+          
         />
         <TextField
           required
           id="outlined-required"
           label="Address"
-          defaultValue="Hello World"
+          
         />
       </div>
 
@@ -65,15 +64,15 @@ export default function OrganizationForm() {
           required fullWidth
           id="outlined-required"
           label="Company Email Address"
-          defaultValue="Hello World"
+          
         />
      </div>
      <div style={{marginTop:'10px'}}>
         <TextField fullWidth
           required
           id="outlined-required"
-          label="Company Name"
-          defaultValue="Hello World"
+          label="Company Description"
+          
         />
      </div>
      <div style={{marginTop:'10px'}}>
@@ -81,15 +80,15 @@ export default function OrganizationForm() {
           required
           id="outlined-required"
           label="Document Name"
-          defaultValue="Hello World"
+          
         />
         <TextField
           required
           id="outlined-required"
           label="Document Description"
-          defaultValue="Hello World"
+          
         />
-        <Button variant="contained" sx={{color:'black', marginTop:'20px'}}>Upload</Button>
+        <Button variant="contained" sx={{color:'white', marginTop:'20px'}}>Upload</Button>
         
 
        
@@ -99,27 +98,27 @@ export default function OrganizationForm() {
           required
           id="outlined-required"
           label="Company Name"
-          defaultValue="Hello World"
+          
         />
         <TextField
           required
           id="outlined-required"
           label="Company Name"
-          defaultValue="Hello World"
+          
         />
         <TextField
           required
           id="outlined-required"
           label="Company Name"
-          defaultValue="Hello World"
+          
         />
       </div>
-      <div sx={{display:'flex', justifyContent:'space-between'}}>
+      <div style={{display:'flex', justifyContent:'space-between'}}>
         <div>
-      <Button variant="contained" sx={{color:'black'}}>Cancel</Button>
+      <Button variant="contained" sx={{color:'black', backgroundColor:'#E8F0FD'}}>Cancel</Button>
       </div>
       <div>
-      <Button variant="contained" sx={{color:'black', marginTop:'20px'}}>Save & Continue</Button>
+      <Button variant="contained" sx={{color:'white'}}>Save & Continue</Button>
       </div>
       </div>
     </Box>
