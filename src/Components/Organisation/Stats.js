@@ -51,9 +51,9 @@ export default function Stats(){
                     </Typography>
    
                    <Box sx={{ marginTop: '30px' }}>
-                       <Grid container spacing={36} >
-                           <Grid item xs={2}>
-                               <Card sx={{ maxWidth: 275, height: 120, width: 271, borderRadius: 5 }}>
+                       <Grid container spacing={0} columns={16} columnSpacing={2} rowSpacing={2} >
+                           <Grid item xs={16} sm={8} md={4}>
+                               <Card sx={{ maxWidth: 275, height: 120, width: "100%", borderRadius: 5 }}>
                                    <CardContent>
                                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                            Total Services
@@ -69,8 +69,8 @@ export default function Stats(){
                                    </CardContent>
                                    </Card>
                            </Grid>
-                           <Grid item xs={2}>
-                               <Card sx={{ maxWidth: 275, height: 120, width: 271, borderRadius: 5 }}>
+                           <Grid item xs={16} sm={8} md={4}>
+                               <Card sx={{ maxWidth: 275, height: 120, width: "100%", borderRadius: 5 }}>
                                    <CardContent>
                                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                            Total Organisations
@@ -86,8 +86,8 @@ export default function Stats(){
                                    </CardContent>
                                    </Card>
                            </Grid>
-                           <Grid item xs={2}>
-                               <Card sx={{ maxWidth: 275, height: 120, width: 271, borderRadius: 5 }}>
+                           <Grid item xs={16} md={4} sm={8}>
+                               <Card sx={{ maxWidth: 275, height: 120, width: "100%", borderRadius: 5 }}>
                                    <CardContent>
                                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                            Total Earnings
@@ -103,8 +103,8 @@ export default function Stats(){
                                    </CardContent>
                                    </Card>
                            </Grid>
-                           <Grid item xs={2}>
-                               <Card sx={{ maxWidth: 275, height: 120, width: 271, borderRadius: 5 }}>
+                           <Grid item xs={16} md={4} sm={8}>
+                               <Card sx={{ maxWidth: 275, height: 120, width: "100%", borderRadius: 5 }}>
                                    <CardContent>
                                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                            New Organisations
@@ -124,16 +124,16 @@ export default function Stats(){
                    </Box>
                    <Box sx={{marginTop: '50px'}}>
                        <Grid container spacing={2}>
-                           <Grid item xs={8}>
-                               <Card sx={{ minWidth: 275, width: 790, height: 300 }}>
+                       <Grid item xs={12} md={8} sm={12}>
+                               <Card sx={{ minWidth: 275, width: "100%", height: 300 }}>
                                    <CardContent>
                                       <img src='Temp2.png' />
                                    </CardContent>
                                   
                                </Card>
                            </Grid>
-                           <Grid item xs={2}>
-                               <Card sx={{ minWidth: 275, width: 300, height: 300 }}>
+                           <Grid item xs={12} md={4} sm={12}>
+                               <Card sx={{ minWidth: 275, width: "100%", height: 300 }}>
                                    <CardContent>
                                        <img src='Temp3.png' />
                                    </CardContent>
