@@ -102,21 +102,17 @@ export default function OrgTable() {
                 All Organisations
               </Typography>
             </Grid>
-            <Grid item sm={4} md={2}>
+            <Grid item sm={4} md={2}  sx={{marginTop:'20px'}}>
               <Link to="./addorganization" style={{textDecoration: "none"}}>
-                <Button
-                  align="left"
-                  variant={'outlined'}
-                  startIcon={<AddCircleIcon />}
-                >
+                <AddCircleIcon />
                   Add Organisation
-                </Button>
+               
               </Link>
             </Grid>
           </Grid>
 
           <Grid container justifyContent={'space-between'}>
-            <Grid item xs={12} sm={11} md={7}>
+            <Grid item xs={12} sm={11} md={6}>
               <Search>
                 <SearchIconWrapper>
                   <SearchIcon/>
@@ -127,7 +123,7 @@ export default function OrgTable() {
                 />
               </Search>
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={5} sx={{marginTop:'20px', marginLeft:'10px'}}>
               <Button sx={{marginX:"1rem"}} size={"medium"} variant={"outlined"} startIcon={<FilterAltIcon sx={{width: "20px"}}/>}>
                 Filter
               </Button>
