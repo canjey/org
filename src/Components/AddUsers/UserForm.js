@@ -25,10 +25,10 @@ export default function UserForm() {
         <Box>
       <div style={{justifyContent:'space-between', marginTop:'10px'}}>
         <TextField
-          required
+          required 
           id="outlined-required"
           label="First Name"
-          sx={{width:500}}
+          
         />
         <TextField
           required
@@ -113,7 +113,7 @@ export default function UserForm() {
           
         />
       </div>
-      <div style={{display:'flex', justifyContent:'space-between'}}>
+      <div style={{display:'flex', justifyContent:'space-evenly', marginTop:'20px'}}>
         <div>
       <Button variant="contained" sx={{color:'black', backgroundColor:'#E8F0FD'}}>Cancel</Button>
       </div>

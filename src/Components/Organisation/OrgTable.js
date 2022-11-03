@@ -20,17 +20,12 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 
+
 function createData(name, calories, fat) {
   return {name, calories, fat};
 }
 
-const theme = createTheme({
-  typography: {
-    fontFamily: "inter",
-    fontSize: "30px"
-  },
-  overflow: 'hidden'
-});
+
 const rows = [
   createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
   createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
@@ -86,7 +81,7 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 export default function OrgTable() {
   return (
     <>
-      <ThemeProvider theme={theme}>
+
         <Box>
           <Grid container columns={12} rowSpacing={2} columnSpacing={1}>
             <Grid item sm={8} md={10}>
@@ -189,7 +184,7 @@ export default function OrgTable() {
             </Grid>
           </Grid>
         </Box>
-      </ThemeProvider>
+
     </>
   );
 }

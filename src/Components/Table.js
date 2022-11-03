@@ -13,6 +13,8 @@ import Avatar from "@mui/material/Avatar";
 import Box from '@mui/material/Box';
 import {Link} from "react-router-dom";
 
+import Layout from "../Components/Layout";
+
 
 function createData(name, calories, fat) {
   return {name, calories, fat};
@@ -29,6 +31,7 @@ const rows = [
 export default function OrgTable() {
   return (
     <>
+ <Layout>
       <Box>
         <Typography
           align="left"
@@ -94,6 +97,7 @@ export default function OrgTable() {
           </TableBody>
         </Table>
       </TableContainer>
+       </Layout>
     </>
   );
 }

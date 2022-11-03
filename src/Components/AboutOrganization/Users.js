@@ -24,13 +24,7 @@ function createData(name, calories, fat) {
   return {name, calories, fat};
 }
 
-const theme = createTheme({
-  typography: {
-    fontFamily: "inter",
-    fontSize: "30px"
-  },
-  overflow: 'hidden'
-});
+
 const rows = [
   createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
   createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
@@ -86,29 +80,29 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 export default function UserTable() {
   return (
     <>
-      <ThemeProvider theme={theme}>
+
         <Box>
-          <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3 }} justifyContent={'space-between'}>
+          <Grid container >
             
-            <Grid item xs={12} md={10}>
-              <Button sx={{marginX:"1rem"}} size={"medium"} variant={"outlined"} startIcon={<FilterAltIcon sx={{width: "20px"}}/>}>
+            <Grid item xs={12} md={10} sx={{display:'flex', justifyContent:'space-evenly' }}>
+              <Button  size={"medium"} variant={"outlined"} startIcon={<FilterAltIcon sx={{width: "20px"}}/>}>
                 Subscribed Services
               </Button>
-              <Button sx={{marginX:"1rem"}} size={"medium"} variant={"outlined"} startIcon={<AttachFileIcon sx={{width: "20px"}}/>}>
+              <Button  size={"medium"} variant={"outlined"} startIcon={<AttachFileIcon sx={{width: "20px"}}/>}>
                 Users
               </Button>
-              <Button sx={{marginX:"1rem"}} size={"medium"} variant={"outlined"} startIcon={<FilterAltIcon sx={{width: "20px"}}/>}>
+              <Button  size={"medium"} variant={"outlined"} startIcon={<FilterAltIcon sx={{width: "20px"}}/>}>
                 Invoices
               </Button>
             </Grid>
           </Grid>
-          <Grid item sm={4} md={12}>
-              <Link to="./adduser" style={{textDecoration: "none"}}>
+          <Typography component="p" sx={{float:'right'}}>
+              <Link to="./adduser" style={{textDecoration: "none", justifyContent:'flex-end'}}>
                 <AddCircleIcon />
                   Add User
                 
               </Link>
-            </Grid>
+            </Typography>
 
           <Grid container>
             <Grid item sm={12}>
@@ -163,7 +157,7 @@ export default function UserTable() {
             </Grid>
           </Grid>
         </Box>
-      </ThemeProvider>
+
     </>
   );
 }

@@ -11,7 +11,7 @@ import AddUsers from './Containers/AddUsers';
 
 const theme = createTheme({
   typography: {
-    fontFamily: 'inter',
+    fontFamily: 'roboto',
     fontSize: '38px'
   },
 })

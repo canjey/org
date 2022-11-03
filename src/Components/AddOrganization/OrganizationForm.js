@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 
 export default function OrganizationForm() {
   return (
-    <Box sx={{width:'1200px'}}>
+    <Box>
     <Box
       component="form"
       sx={{
@@ -88,7 +88,7 @@ export default function OrganizationForm() {
           label="Document Description"
           
         />
-        <Button variant="contained" sx={{color:'white', marginTop:'20px'}}>Upload</Button>
+        <Button variant="contained" xs={12} sx={{color:'white', marginTop:'20px'}}>Upload</Button>
         
 
        
@@ -113,7 +113,7 @@ export default function OrganizationForm() {
           
         />
       </div>
-      <div style={{display:'flex', justifyContent:'space-between'}}>
+      <div style={{display:'flex', justifyContent:'space-evenly', marginTop:'30px'}}>
         <div>
       <Button variant="contained" sx={{color:'black', backgroundColor:'#E8F0FD'}}>Cancel</Button>
       </div>
