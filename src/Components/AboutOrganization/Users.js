@@ -84,17 +84,18 @@ export default function UserTable() {
         <Box>
           <Grid container >
             
-            <Grid item xs={12} md={10} sx={{display:'flex', justifyContent:'space-evenly' }}>
-              <Button  size={"medium"} variant={"outlined"} startIcon={<FilterAltIcon sx={{width: "20px"}}/>}>
+            {/* <Grid item xs={12} md={10} sx={{display:'flex', justifyContent:'space-evenly' }}>
+              <Link to='./subscribed'><Button  size={"medium"} variant={"outlined"} startIcon={<FilterAltIcon sx={{width: "20px"}}/>}>
                 Subscribed Services
               </Button>
-              <Button  size={"medium"} variant={"outlined"} startIcon={<AttachFileIcon sx={{width: "20px"}}/>}>
+              </Link>
+              <Link to='.'><Button  size={"medium"} variant={"outlined"} startIcon={<AttachFileIcon sx={{width: "20px"}}/>}>
                 Users
-              </Button>
-              <Button  size={"medium"} variant={"outlined"} startIcon={<FilterAltIcon sx={{width: "20px"}}/>}>
+              </Button></Link>
+              <Link to=''><Button  size={"medium"} variant={"outlined"} startIcon={<FilterAltIcon sx={{width: "20px"}}/>}>
                 Invoices
-              </Button>
-            </Grid>
+              </Button></Link>
+            </Grid> */}
           </Grid>
           <Typography component="p" sx={{float:'right'}}>
               <Link to="./adduser" style={{textDecoration: "none", justifyContent:'flex-end'}}>

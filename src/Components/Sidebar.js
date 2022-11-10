@@ -48,9 +48,9 @@ export default function Sidebar() {
               justifyContent: 'center',
               float: 'right'
             }}>
-              <CalendarTodayIcon sx={{width: '32px', color: 'black'}}/>
-              <NotificationsIcon sx={{width: '32px', color: 'black'}}/>
-              <Avatar alt="profile" src="profile.jpg" sx={{width: '32px', height: '32px'}}/>
+              <CalendarTodayIcon sx={{width: '32px', fontSize:'45px', color: 'black'}}/>
+              <NotificationsIcon sx={{width: '32px', fontSize:'45px', color: 'black'}}/>
+              <Avatar alt="profile" src="profile.jpg" sx={{width: '32px', marginTop:'8px', height: '32px'}}/>
 
             </Stack>
           </Box>

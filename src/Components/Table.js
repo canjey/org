@@ -31,7 +31,7 @@ const rows = [
 export default function OrgTable() {
   return (
     <>
- <Layout>
+
       <Box>
         <Typography
           align="left"
@@ -97,7 +97,7 @@ export default function OrgTable() {
           </TableBody>
         </Table>
       </TableContainer>
-       </Layout>
+   
     </>
   );
 }
