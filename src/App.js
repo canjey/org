@@ -4,6 +4,7 @@ import Organisation from './Containers/Organisation';
 import Services from './Containers/Services';
 import AddOrganization from './Containers/AddOrganization';
 import AboutOrganization from './Containers/AboutOrganization'
+import Login from './Containers/Login'
 import {Route, Routes} from "react-router-dom";
 import {createTheme} from "@mui/material/styles";
 import {ThemeProvider} from "@emotion/react";
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="/organizations/addorganization" element={<AddOrganization/>}/>
           <Route path="/organizations/aboutpage" element={<AboutOrganization/>}/>
           <Route path="/organizations/aboutpage/adduser" element={<AddUsers/>}/>
+          <Route path="/login" element={<Login/>} />
         </Routes>
       </ThemeProvider>
     </>
