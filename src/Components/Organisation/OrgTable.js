@@ -98,7 +98,7 @@ export default function OrgTable() {
               </Typography>
             </Grid>
             <Grid item sm={4} md={2}  sx={{marginTop:'20px'}}>
-              <Link to="./addorganization" style={{textDecoration: "none"}}>
+              <Link to="./addorganization" sx={{textDecoration: "none"}}>
                 <AddCircleIcon />
                   Add Organisation
                
