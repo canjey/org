@@ -10,21 +10,41 @@ import {createTheme} from "@mui/material/styles";
 import {ThemeProvider} from "@emotion/react";
 import AddUsers from './Containers/AddUsers';
 import Subscribed from './Containers/SubscribedServices';
+import { useState } from 'react';
 
 
 const theme = createTheme({
   typography: {
     fontFamily: 'roboto',
-    fontSize: '38px'
+    fontSize: '10px'
   },
   Link:{
     textDecoration:'none'
   }
 })
 
+
+
 export default function App() {
+
+  const token = localStorage.getItem('token');
+
+  if(!token) {
+    <ThemeProvider theme={theme}>
+    return <Login />
+    </ThemeProvider>
+  }
+
+
+  const logout = () =>
+  {
+    localStorage.removeItem('token');
+    window.location.href = ("/login");
+
+  }
   return (
     <>
+    
       <ThemeProvider theme={theme}>
         <Routes>
           <Route path="/" element={<Dashboard/>}/>

@@ -21,6 +21,12 @@ export const drawerWidth = 240;
 
 
 export default function Sidebar() {
+  const logout = () =>
+  {
+    localStorage.removeItem('token');
+    window.location.href = ("/login");
+
+  }
   return (
     <>
       <Box sx={{display: 'flex'}}>
@@ -111,6 +117,11 @@ export default function Sidebar() {
               color: 'white'
             }}>Settings </Link>
             </Typography>
+
+          </Typography>
+          <Typography sx={{marginTop: '310px', display: 'flex', padding: '40px',}}>
+           
+          <button sx={{backgroundColor:'green'}}onClickCapture={logout}>logout user</button>
 
           </Typography>
         </Drawer>

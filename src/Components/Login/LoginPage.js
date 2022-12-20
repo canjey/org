@@ -7,36 +7,37 @@ import Button from "@mui/material/Button";
 import  {  useState } from "react";
 import swal from 'sweetalert';
 
+
 async function loginUser(credentials) {
-    return fetch('https://4960-196-216-95-232.in.ngrok.io/accounts/login', {
+    
+    return fetch('https://3406-196-216-95-232.in.ngrok.io/accounts/login', {
         credentials: 'include',    
         method:'POST',
         headers: {
             'Content-Type':'application/json'
         },
         body: JSON.stringify(credentials)
-    })
-    .then(data => data.json())
-    .then(res => {
-        console.log(res.data.access_token);
-        window.localStorage.setItem("token", res.data.access_token);
         
-        if (res.data.access_token){
-            window.location.href = ("/organizations");
-        }  else {
-            window.location.href = ("/login");
-            // swal("Failed", response.message, "error");
-            }          
-        
-        // return <Redirect to="/home" />;
     })
-    .catch(error => console.error(error))
+    .then(data => data.json()
+    )
+    // .then(data => {
+    //   if (data.status === 400)
+    //   {
+    //     console.log('Invalid Credentials')
+    //   }
+    // })
+   
+    
 }
 
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const errors = {
+      credentials:'Invalid Credentials'
+    };
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -44,24 +45,25 @@ export default function LoginPage() {
             email,
             password
         });
-       // if ('accessToken' in response) {
-            // swal("Success", response.message, "success", {
-            //   buttons: false,
-            //   timer: 2000,
-            // })
-            // .then((value) => {
-            //   localStorage.setItem('accessToken', response['accessToken']);
-            //   localStorage.setItem('email', JSON.stringify(response['email']));
-            //   window.location.href = "/dashboard";
-            // });
-        //     console.log('hi')
-        //   } 
-        // else {
-        //     console.log('no')
-        // swal("Failed", response.message, "error");
-        // }
+        console.log(response);
+       if ('access_token' in response.data) {
+        window.localStorage.setItem("token", response.data.access_token);
+        console.log(response.success);
+        console.log(response.data.access_token);
+        window.location.href = ("/organizations");
+        } 
+        else {
+          console.log(response)
+          window.location.href = ("/login");
+           
+        }
     }
-    
+    const logout = () =>
+    {
+      localStorage.removeItem('token');
+      window.location.href = ("/login");
+  
+    }
     
   return (
     <>
