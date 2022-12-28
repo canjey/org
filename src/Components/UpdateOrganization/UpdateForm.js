@@ -3,47 +3,60 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
-import {useState} from "react";
 import Grid from '@mui/material/Grid';
+import {useParams} from "react-router-dom";
+import {useState, useEffect} from "react"
 
-export default function OrganizationForm() {
+
+export default function UpdateForm() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
   const [location, setLocation] = useState("");
   const [email, setEmail] = useState("");
   const [description, setDescription] = useState("");
-  const [postal_address, setPostal_Address] = useState("");
+  const [address, setAddress] = useState("");
   const [message, setMessage] = useState("");
+  const [updateData, setUpdateData] =useState("");
+  const {id} = useParams();
+  
+    useEffect(() =>{
+        fetch( `http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/organizations/organizations/${id}`,)
+        .then ( response =>{
+            if(response.ok){
+                return(response.json())
+            }}
+        )
+        .then(data =>{
+            setUpdateData(data);
+        })
+    })
   
 
   const handleSubmit =  e => {
     e.preventDefault();
     let res =  fetch(
-      "http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/organizations/organizations/",
+      `http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/organizations/organizations/${id}`,
       {
         method: "POST",
-        headers: {
-          'Content-Type':'application/json'
-      },
         body: JSON.stringify({
           name: name,
           phone: phone,
-          city: city,
+          country: country,
           location: location,
           email: email,
           description: description,
-          postal_address: postal_address,
+          address: address,
           documents:[]
         })
         
       }
-      
     );
+    
     setName('');
     setPhone('');
-    setPostal_Address('');
-    setCity('');
+    setAddress('');
+    setCountry('');
     setDescription('');
     setEmail('');
     setMessage('');
@@ -80,10 +93,9 @@ export default function OrganizationForm() {
                 fullWidth
                 required
                 id="outlined-required"
-                label="Company Name"
                 type="text"
                 name="name"
-                value={name}
+                value={updateData.name}
                 onChange={(e) => setName(e.target.value)}
                 
               />
@@ -91,10 +103,9 @@ export default function OrganizationForm() {
                 required
                 fullWidth
                 id="outlined-required"
-                label="Phone Number"
                 type="text"
                 name="phone"
-                value={phone}
+                value={updateData.phone}
                 onChange={(e) => setPhone(e.target.value)}
               />
             </div>
@@ -103,19 +114,17 @@ export default function OrganizationForm() {
                 fullWidth
                 required
                 id="outlined-required"
-                label="Country"
                 type="text"
-                name=" city"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
+                name="country"
+                value={updateData.city}
+                onChange={(e) => setCountry(e.target.value)}
               />
               <TextField
                 required
                 fullWidth
                 id="outlined-required"
-                label="Location"
                 name="location"
-                value={location}
+                value={updateData.location}
                 type="text"
                 onChange={(e) => setLocation(e.target.value)}
               />
@@ -123,11 +132,10 @@ export default function OrganizationForm() {
                 required
                 fullWidth
                 id="outlined-required"
-                label="Address"
                 type="text"
                 name="postal_address"
-                value={postal_address}
-                onChange={(e) => setPostal_Address(e.target.value)}
+                value={updateData.postal_address}
+                onChange={(e) => setAddress(e.target.value)}
               />
             </div>
 
@@ -136,10 +144,9 @@ export default function OrganizationForm() {
                 required
                 fullWidth
                 id="outlined-required"
-                label="Company Email Address"
                 type="email"
                 name="email"
-                value={email}
+                value={updateData.email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -148,10 +155,9 @@ export default function OrganizationForm() {
                 required
                 fullWidth
                 id="outlined-required"
-                label="Company Description"
                 type="text"
                 name="description"
-                value={description}
+                value={updateData.description}
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
@@ -232,13 +238,13 @@ export default function OrganizationForm() {
               Phone Number: {phone}
               </Typography> 
               <Typography>
-              Country: {city}
+              Country: {country}
               </Typography> 
               <Typography>
               Location:    {location}
               </Typography> 
               <Typography>
-              Address:   {postal_address}
+              Address:   {address}
               </Typography> 
               <Typography>
               Company Email: {email}

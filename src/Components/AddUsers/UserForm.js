@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 
 export default function UserForm() {
   return (
-    <Box >
+    <Box sx={{ mt:'-80px', ml:'-10px'}}>
     <Box
       component="form"
       sx={{
@@ -92,26 +92,6 @@ export default function UserForm() {
         
 
        
-      </div>
-      <div style={{marginTop:'10px'}}>
-        <TextField
-          required
-          id="outlined-required"
-          label="Company Name"
-          
-        />
-        <TextField
-          required
-          id="outlined-required"
-          label="Company Name"
-          
-        />
-        <TextField
-          required
-          id="outlined-required"
-          label="Company Name"
-          
-        />
       </div>
       <div style={{display:'flex', justifyContent:'space-evenly', marginTop:'20px'}}>
         <div>

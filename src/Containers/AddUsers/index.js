@@ -9,7 +9,6 @@ export default function AddUsers(){
     return(
         <>
      <Layout>  
-        <Sidebar/>
         <UserForm/>
      </Layout>
         </>

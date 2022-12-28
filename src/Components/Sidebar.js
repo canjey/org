@@ -15,6 +15,14 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import IconButton from '@mui/material/IconButton';
+import Logout from '@mui/icons-material/Logout';
+import Tooltip from '@mui/material/Tooltip';
+import PersonAdd from '@mui/icons-material/PersonAdd';
+import Settings from '@mui/icons-material/Settings';
 
 // import Stats from './Stats';
 export const drawerWidth = 240;
@@ -27,55 +35,100 @@ export default function Sidebar() {
     window.location.href = ("/login");
 
   }
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <>
       <Box sx={{display: 'flex'}}>
-        <AppBar
-          position="fixed"
-          sx={{
-            width: `calc(100% - ${drawerWidth}px)`,
-            ml: `${drawerWidth}px`,
-            backgroundColor: 'white',
-            boxShadow: 'none',
-            justifyContent: 'right'
-          }}
-        >
-          <Box sx={{justifyContent: 'right'}}>
-            <Stack direction="row" spacing={0} sx={{
-              //width: '120px',
-              backgroundColor: '#E8F0FD',
-              borderBottomLeftRadius: "0px",
-              marginRight: '10px',
-              borderBottomRightRadius: "20px",
-              borderTopLeftRadius: "20px",
-              borderTopRightRadius: "0px",
-              marginTop: '20px',
-              padding: '10px',
-              justifyContent: 'center',
-              float: 'right'
-            }}>
-              <CalendarTodayIcon sx={{width: '32px', fontSize:'45px', color: 'black'}}/>
-              <NotificationsIcon sx={{width: '32px', fontSize:'45px', color: 'black'}}/>
-              <Avatar alt="profile" src="profile.jpg" sx={{width: '32px', marginTop:'8px', height: '32px'}}/>
-
-            </Stack>
-          </Box>
-        </AppBar>
+      <Box sx={{ marginLeft: {md: '77%', sm:'40%'}, display: 'flex', alignItems: 'right', textAlign: 'center',mt:'20px' }}>
+        <Typography sx={{ mt:'5%', minWidth: 100 }}>About Us</Typography>
+        <Typography sx={{ mt:'5%', minWidth: 100 }}>Contact Us</Typography>
+        <Tooltip title="Account settings">
+          <IconButton
+            onClick={handleClick}
+            size="small"
+            sx={{ ml: 2 }}
+            aria-controls={open ? 'account-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+          >
+            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+          </IconButton>
+        </Tooltip>
+      </Box>
+      <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            overflow: 'visible',
+            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            mt: 1.5,
+            '& .MuiAvatar-root': {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
+            },
+            '&:before': {
+              content: '""',
+              display: 'block',
+              position: 'absolute',
+              top: 0,
+              right: 14,
+              width: 10,
+              height: 10,
+              bgcolor: 'background.paper',
+              transform: 'translateY(-50%) rotate(45deg)',
+              zIndex: 0,
+            },
+          },
+        }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      >
+        <MenuItem>
+          <Avatar /> Profile
+        </MenuItem>
+        <MenuItem>
+          <Avatar /> My account
+        </MenuItem>
+        <Divider />
+        <MenuItem>
+          <ListItemIcon>
+            <PersonAdd fontSize="small" />
+          </ListItemIcon>
+          Add another account
+        </MenuItem>
+        <MenuItem>
+          <ListItemIcon>
+            <Settings fontSize="small" />
+          </ListItemIcon>
+          Settings
+        </MenuItem>
+        <MenuItem>
+          <ListItemIcon onClick={logout}>
+            <Logout onClick={logout} fontSize="small" />
+          </ListItemIcon>
+          <Typography onClick={logout}>Logout </Typography>
+        </MenuItem>
+      </Menu>
         <Drawer
           PaperProps={{
             sx: {
               backgroundColor: "#5495D0",
               color: "white",
             }
-          }}
-          sx={{
-            backgroundColor: '#5495D0',
-            width: drawerWidth,
-            flexShrink: 0,
-            '& .MuiDrawer-paper': {
-              width: drawerWidth,
-              boxSizing: 'border-box',
-            },
           }}
           variant="permanent"
           anchor="left"
@@ -96,7 +149,7 @@ export default function Sidebar() {
               <Typography sx={{marginLeft: '10px'}}><Link to='/organizations' style={{
                 textDecoration: 'none',
                 color: 'white'
-              }}>Organisation </Link>
+              }}>Organization </Link>
               </Typography>
             </Typography>
             <Typography sx={{marginTop: '20px', display: 'flex'}}>
@@ -117,11 +170,6 @@ export default function Sidebar() {
               color: 'white'
             }}>Settings </Link>
             </Typography>
-
-          </Typography>
-          <Typography sx={{marginTop: '310px', display: 'flex', padding: '40px',}}>
-           
-          <button sx={{backgroundColor:'green'}}onClickCapture={logout}>logout user</button>
 
           </Typography>
         </Drawer>

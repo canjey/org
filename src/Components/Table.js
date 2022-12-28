@@ -11,38 +11,50 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Avatar from "@mui/material/Avatar";
 import Box from '@mui/material/Box';
-import {Link} from "react-router-dom";
-
+import {Link, useParams} from "react-router-dom";
+import {useState, useEffect} from "react"
 import Layout from "../Components/Layout";
 
-
-function createData(name, calories, fat) {
-  return {name, calories, fat};
+function OrgId(){
+  const params = useParams();
+  console.log(params);
 }
 
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9)
-];
 
-export default function OrgTable() {
+const OrgTable = () => {
+  const [orgData, setOrgData] = useState([]);
+
+    useEffect(() => {
+      fetch("http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/organizations/organizations/")
+        .then(response => {
+          if(response.ok){
+            console.log('hi')
+            return response.json()
+          }
+          throw response
+        })
+        .then(data => {
+          setOrgData(data)
+          console.log(data)
+        }) 
+
+    }, [])
+  
   return (
     <>
+    <Box component="main" >
 
       <Box>
         <Typography
           align="left"
-          sx={{marginTop: "10px", padding: "10px", display: 'flex', justifyContent: 'space-between'}}
+          sx={{marginTop: -"5px", padding: "10px", display: 'flex', justifyContent: 'space-between'}}
         >
           Organizations Available
           <Typography
             align="left"
             sx={{marginTop: "-10px", padding: "10px", display: 'flex', justifyContent: 'space-between'}}
           >
-            <Link to='./organizations' style={{textDecoration: 'none'}}><VisibilityOffIcon sx={{color: 'blue'}}/>
+            <Link to='./organizations' style={{textDecoration: 'none'}}><VisibilityOffIcon sx={{color: 'blue',}}/>
               View all
             </Link>
             <Link to='./organizations/addorganization' style={{textDecoration: 'none'}}>
@@ -61,43 +73,48 @@ export default function OrgTable() {
 
 
       </Box>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{mt:'-10px'}}>
         <Table aria-label="simple table">
           <TableHead>
 
             <TableRow>
-              <TableCell xs={4} sm={4}>Name</TableCell>
-              <TableCell xs={4} align="right">Account Status</TableCell>
-              <TableCell xs={4} align="right">Subscribed Services</TableCell>
+              <TableCell md={4} xs={4} sm={4}>Organization Name</TableCell>
+              <TableCell md={4} xs={4} align="right">Organization Location</TableCell>
+              <TableCell md={4} xs={4} align="right">Organization Phone Number</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map(row =>
+            {orgData.map(orgData =>
               <TableRow
-                key={row.name}
+                key={orgData.id}
 
               >
-                <TableCell component="th" scope="row" sx={{display: "flex"}}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg"/>
-                  <Typography sx={{padding: "2px"}}>
-                    {row.name}
-                    <Typography sx={{color: "#9F9595", fontSize: "10px"}}>
-                      {row.name}
+                <Link to ={`/organizations/${orgData.id}/aboutpage`} style={{textDecoration:'none'}}>
+                  <TableCell component="th" scope="row" sx={{display: "flex"}}>
+                  <Avatar alt="Remy Sharp" src="profile.jpg" sx={{mr:'10px'}}/>
+                  <Typography >
+                    {orgData.name}
+                    <Typography sx={{color: "#9F9595", fontSize: "10px", }}>
+                      {orgData.email}
                     </Typography>
                   </Typography>
                 </TableCell>
+                </Link>
+                
                 <TableCell align="right">
-                  {row.calories}
+                  {orgData.location}
                 </TableCell>
-                <TableCell align="right">
-                  {row.fat}
+                <TableCell align="right" sx={{textAlign:'right'}}>
+                  {orgData.phone}
                 </TableCell>
               </TableRow>
             )}
           </TableBody>
         </Table>
       </TableContainer>
-   
+   </Box>
     </>
   );
 }
+
+export default OrgTable

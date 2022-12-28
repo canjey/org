@@ -10,7 +10,7 @@ import swal from 'sweetalert';
 
 async function loginUser(credentials) {
     
-    return fetch('https://3406-196-216-95-232.in.ngrok.io/accounts/login', {
+    return fetch('http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/accounts/login', {
         credentials: 'include',    
         method:'POST',
         headers: {
@@ -22,7 +22,7 @@ async function loginUser(credentials) {
     .then(data => data.json()
     )
     // .then(data => {
-    //   if (data.status === 400)
+    //   if (data.status === 404)
     //   {
     //     console.log('Invalid Credentials')
     //   }
@@ -71,7 +71,7 @@ export default function LoginPage() {
         <Grid container>
           <Grid item xs={12} md={6} sx={{padding:'10%'}}>
             <form onSubmit={handleSubmit}>
-            <Typography variant="h1">Welcome</Typography>
+            <Typography variant="h1">Welcome To Organization Planner</Typography>
             <Typography variant="h4" sx={{mt:'30px'}}>Please Enter Your Details</Typography>
 
             <Typography>

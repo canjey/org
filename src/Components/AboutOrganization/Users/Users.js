@@ -19,6 +19,9 @@ import {Link} from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import DeleteIcon from '@mui/icons-material/Delete';
+import SystemUpdateIcon from '@mui/icons-material/SystemUpdate';
+import { useParams } from 'react-router-dom';
 
 function createData(name, calories, fat) {
   return {name, calories, fat};
@@ -78,6 +81,17 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 }));
 
 export default function UserTable() {
+  const {id} = useParams();
+  const handleDelete =()=>{
+    fetch(`http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/organizations/organizations/${id}/`,{
+      method:'DELETE'
+    })
+    .then(res => res.json())
+    .then (console.log("deleted"))
+    .then(
+      window.location.href = ("/organizations")
+      )
+  };
   return (
     <>
 
@@ -97,12 +111,13 @@ export default function UserTable() {
               </Button></Link>
             </Grid> */}
           </Grid>
-          <Typography component="p" sx={{float:'right'}}>
+          <Typography component="p" sx={{float:'right', mt:'-30px'}}>
               <Link to="./adduser" style={{textDecoration: "none", justifyContent:'flex-end'}}>
                 <AddCircleIcon />
-                  Add User
-                
+                  Add User               
               </Link>
+              <Link onClick={handleDelete} ><DeleteIcon /></Link>
+              <SystemUpdateIcon /> 
             </Typography>
 
           <Grid container>

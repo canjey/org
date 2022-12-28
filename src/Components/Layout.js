@@ -3,7 +3,7 @@ import Sidebar from "./Sidebar";
 
 export const Layout = ({children}) => {
   return (
-    <Box sx={{paddingX: "1rem", paddingLeft: "250px"}}>
+    <Box sx={{paddingX: "1rem", paddingLeft: "200px",}}>
       <Sidebar/>
       {children}
     </Box>

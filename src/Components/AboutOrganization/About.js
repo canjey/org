@@ -10,18 +10,55 @@ import Button from "@mui/material/Button";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import DownloadIcon from "@mui/icons-material/Download";
+import {useState, useEffect} from 'react';
+import { useParams } from 'react-router-dom';
+import OrganizationUsers from '../../Containers/OrganizationUsers/index.js';
+import ServiceTable from './Services.js'
+
+
+function handleUsers() {
+  return(
+    <OrganizationUsers />
+  )
+}
+
+function handleServices() {
+  return(
+    <ServiceTable />
+
+  )
+}
 
 
 export default function Stats() {
+
+  const [orgDetails, setOrgDetails] = useState({id: {} });
+  const {id} = useParams();
+
+    useEffect(() => {
+    fetch(`http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/organizations/organizations/${id}/`)
+    .then(response => {
+      if (response.ok)
+      {
+        return (response.json())
+      }
+      throw response;
+    })
+    .then(data =>{
+      setOrgDetails(data);
+      
+    })
+  })
+  console.log(orgDetails)
   return (
     <>
       <Box
         component="main"
-        sx={{flexGrow: 1, bgcolor: 'background.default', p: 3}}
+        sx={{flexGrow: 1, bgcolor: 'background.default', p: 3,  ml:'-20px'}}
       >
         <Toolbar/>
-        <Typography component='h4' sx={{fontFamily: 'inter', fontSize: '25px'}}>
-          Organization Manager
+        <Typography component='h4' sx={{fontFamily: 'inter',mt:'-80px'}}>
+          {orgDetails.name}
         </Typography>
         <Box sx={{marginTop: '30px'}}>
           <Grid container rowSpacing={2} columns={16} columnSpacing={4}>
@@ -52,7 +89,7 @@ export default function Stats() {
               <Card sx={{maxWidth: 275, height: 120, width: "100%", borderRadius: 5}}>
                 <CardContent>
                   <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
-                    Total Organisations
+                    Total Users
                   </Typography>
                   <Typography variant="h5" component="div" sx={{display: 'flex',}}>
                     32
@@ -98,7 +135,7 @@ export default function Stats() {
               <Card sx={{maxWidth: 275, height: 120, width: "100%", borderRadius: 5}}>
                 <CardContent>
                   <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>
-                    New Organisations
+                    New Users
                   </Typography>
                   <Typography variant="h5" component="div" sx={{display: 'flex',}}>
                     32
@@ -128,14 +165,14 @@ export default function Stats() {
           </Typography>
           <Grid container sx={{marginTop:'20px'}}>
           <Grid item xs={12} md={10} sx={{display:'flex', justifyContent:'space-evenly' }}>
-              <Link to='./subscribed'><Button  size={"medium"} variant={"outlined"} startIcon={<FilterAltIcon sx={{width: "20px"}}/>}>
+              <Link to={'./aboutpage'} style={{textDecoration:'none'}}><Button  size={"medium"} variant={"outlined"} startIcon={<FilterAltIcon sx={{width: "20px"}}/>}>
                 Subscribed Services
               </Button>
               </Link>
-              <Link to='.'><Button  size={"medium"} variant={"outlined"} startIcon={<AttachFileIcon sx={{width: "20px"}}/>}>
+              <Link to={handleUsers} activeClassName="active" style={{textDecoration:'none'}}><Button  size={"medium"} variant={"outlined"} startIcon={<AttachFileIcon sx={{width: "20px"}}/>}>
                 Users
               </Button></Link>
-              <Link to=''><Button  size={"medium"} variant={"outlined"} startIcon={<FilterAltIcon sx={{width: "20px"}}/>}>
+              <Link to='' style={{textDecoration:'none'}}><Button  size={"medium"} variant={"outlined"} startIcon={<FilterAltIcon sx={{width: "20px"}}/>}>
                 Invoices
               </Button></Link>
             </Grid>

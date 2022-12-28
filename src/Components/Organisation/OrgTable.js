@@ -19,20 +19,10 @@ import {Link} from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import {useState, useEffect} from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SystemUpdateIcon from '@mui/icons-material/SystemUpdate';
 
-
-function createData(name, calories, fat) {
-  return {name, calories, fat};
-}
-
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9)
-];
 
 const Search = styled("div")(({theme}) => ({
   position: "relative",
@@ -79,112 +69,165 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 }));
 
 export default function OrgTable() {
+  const handleDelete =() =>{
+    fetch()
+  }
+  const [orgData, setOrgData] = useState([]);
+
+  useEffect(() =>{
+    fetch('http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/organizations/organizations/')
+    .then(response => {
+      if (response.ok){
+        return response.json()
+      }
+      throw response;
+    })
+    .then (data => {
+      setOrgData(data)
+    })
+    
+
+  }, [])
+
   return (
     <>
-
-        <Box>
-          <Grid container columns={12} rowSpacing={2} columnSpacing={1}>
-            <Grid item sm={8} md={10}>
-              <Typography
-                align="left"
-                sx={{
-                  marginTop: "10px",
-                  padding: "10px",
-                  display: "flex",
-                  fontFamily: "inter"
-                }}
-              >
-                All Organisations
-              </Typography>
-            </Grid>
-            <Grid item sm={4} md={2}  sx={{marginTop:'20px'}}>
-              <Link to="./addorganization" sx={{textDecoration: "none"}}>
-                <AddCircleIcon />
-                  Add Organisation
-               
-              </Link>
-            </Grid>
+      <Box>
+        <Grid container columns={12} rowSpacing={2} columnSpacing={1}>
+          <Grid item sm={8} md={10}>
+            <Typography
+              align="left"
+              sx={{
+                marginTop: "10px",
+                padding: "10px",
+                display: "flex",
+                fontFamily: "inter"
+              }}
+            >
+              All Organisations
+            </Typography>
           </Grid>
-
-          <Grid container justifyContent={'space-between'}>
-            <Grid item xs={12} sm={11} md={6}>
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon/>
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{"aria-label": "search"}}
-                />
-              </Search>
-            </Grid>
-            <Grid item xs={12} md={5} sx={{marginTop:'20px', marginLeft:'10px'}}>
-              <Button sx={{marginX:"1rem"}} size={"medium"} variant={"outlined"} startIcon={<FilterAltIcon sx={{width: "20px"}}/>}>
-                Filter
-              </Button>
-              <Button sx={{marginX:"1rem"}} size={"medium"} variant={"outlined"} startIcon={<AttachFileIcon sx={{width: "20px"}}/>}>
-                Attachment
-              </Button>
-              <Button sx={{marginX:"1rem"}} size={"medium"} variant={"outlined"} startIcon={<FilterAltIcon sx={{width: "20px"}}/>}>
-                Download
-              </Button>
-            </Grid>
+          <Grid item sm={4} md={2} sx={{ marginTop: "20px" }}>
+            <Link to="./addorganization" style={{ textDecoration: "none" }}>
+              <AddCircleIcon />
+              Add Organisation
+            </Link>
           </Grid>
+        </Grid>
 
-          <Grid container>
-            <Grid item sm={12}>
-              <TableContainer component={Paper} sx={{marginTop: '10px'}}>
-                <Table
-                  sx={{boxShadow: "1"}}
-                  aria-label="simple table"
-                >
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Name</TableCell>
-                      <TableCell align="right">Date</TableCell>
-                      <TableCell align="right">Amount Due</TableCell>
-                      <TableCell align="right">Service</TableCell>
-                      <TableCell align="right">Status</TableCell>
-                      <TableCell align="right">Action</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rows.map((row) => (
-                      <TableRow key={row.name}>
-                        <Link to="./aboutpage" style={{textDecoration: "none"}}>
-                          <TableCell
-                            component="th"
-                            scope="row"
-                            sx={{display: "flex"}}
-                          >
-                            <Avatar
-                              alt="Remy Sharp"
-                              src="/static/images/avatar/1.jpg"
-                            />
-                            <Typography sx={{padding: "2px"}}>
-                              {row.name}
-                              <Typography
-                                sx={{color: "#9F9595", fontSize: "10px"}}
-                              >
-                                {row.name}
-                              </Typography>
+        <Grid container justifyContent={"space-between"}>
+          <Grid item xs={12} sm={11} md={6}>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+              />
+            </Search>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={5}
+            sx={{ marginTop: "20px", marginLeft: "10px" }}
+          >
+            <Button
+              sx={{ marginX: "1rem" }}
+              size={"medium"}
+              variant={"outlined"}
+              startIcon={<FilterAltIcon sx={{ width: "20px" }} />}
+            >
+              Filter
+            </Button>
+            <Button
+              sx={{ marginX: "1rem" }}
+              size={"medium"}
+              variant={"outlined"}
+              startIcon={<AttachFileIcon sx={{ width: "20px" }} />}
+            >
+              Attachment
+            </Button>
+            <Button
+              sx={{ marginX: "1rem" }}
+              size={"medium"}
+              variant={"outlined"}
+              startIcon={<FilterAltIcon sx={{ width: "20px" }} />}
+            >
+              Download
+            </Button>
+          </Grid>
+        </Grid>
+
+        <Grid container>
+          <Grid item sm={12}>
+            <TableContainer component={Paper} sx={{ marginTop: "10px" }}>
+              <Table sx={{ boxShadow: "1" }} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Name</TableCell>
+                    <TableCell align="right">Date</TableCell>
+                    <TableCell align="right">Amount Due</TableCell>
+                    <TableCell align="right">Service</TableCell>
+                    <TableCell align="right">Status</TableCell>
+                    <TableCell align="right">Action</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {orgData.map((row) => (
+                    <TableRow key={row.id}>
+                      <Link
+                        to={`/organizations/${row.id}/aboutpage`}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <TableCell
+                          component="th"
+                          scope="row"
+                          sx={{ display: "flex" }}
+                        >
+                          <Avatar
+                            alt="Remy Sharp"
+                            src="profile.jpg"
+                            sx={{mr:'10px'}}
+                          />
+                          <Typography sx={{ padding: "2px" }}>
+                            {row.name}
+                            <Typography
+                              sx={{
+                                color: "#9F9595",
+                                fontSize: "10px",
+                                textAlign: "right"
+                              }}
+                            >
+                              {row.email}
                             </Typography>
-                          </TableCell>
-                        </Link>
-                        <TableCell align="right">{row.calories}</TableCell>
-                        <TableCell align="right">{row.fat}</TableCell>
-                        <TableCell align="right">{row.fat}</TableCell>
-                        <TableCell align="right">{row.fat}</TableCell>
-                        <TableCell align="right">{row.fat}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Grid>
+                          </Typography>
+                        </TableCell>
+                      </Link>
+                      <TableCell align="right">12/12/2022</TableCell>
+                      <TableCell align="right">1100 /=</TableCell>
+                      <TableCell align="right">4</TableCell>
+                      <TableCell align="right">Active</TableCell>
+                      <TableCell align="right">
+                        {" "}
+                        <Typography
+                          component="p"
+                          sx={{ float: "right", mt: "10px" }}
+                        >
+                         <Link>
+                            <DeleteIcon />
+                          </Link>
+                          <SystemUpdateIcon />
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Grid>
-        </Box>
-
+        </Grid>
+      </Box>
     </>
   );
 }
