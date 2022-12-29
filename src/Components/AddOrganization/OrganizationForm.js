@@ -63,7 +63,7 @@ export default function OrganizationForm() {
   return (
     <Box sx={{ mt: "-80px", ml: "100px",  }}>
       <Grid container>
-        <Grid item xs={6}>
+        <Grid item xs={6} sm={6}>
         <Box
         sx={{
           "& .MuiTextField-root": { m: 1 },
@@ -223,7 +223,7 @@ export default function OrganizationForm() {
         </form>
       </Box>
           </Grid>
-          <Grid item xs={6} sx={{padding:'150px'}}>
+          <Grid item xs={6} sm={6} sx={{padding:{md: '150px', sm:'10px'}, marginTop:{sm:'30px'}}}>
           <Box component="div" id="details">
             <Typography>
               Company Name: {name}

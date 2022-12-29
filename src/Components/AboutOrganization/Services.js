@@ -22,6 +22,7 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import DeleteIcon from '@mui/icons-material/Delete';
 import SystemUpdateIcon from '@mui/icons-material/SystemUpdate';
 import { useParams } from 'react-router-dom';
+import {useState, useEffect} from "react"
 
 function createData(name, calories, fat) {
   return {name, calories, fat};
@@ -81,9 +82,10 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 }));
 
 export default function ServiceTable() {
+  const [users, setUserData] = useState([]);
   const {id} = useParams();
-  const handleDelete =()=>{
-    fetch(`http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/organizations/organizations/${id}/`,{
+  const handleDelete =(userId)=>{
+    fetch(`https://eb25-196-216-93-135.in.ngrok.io/accounts/users/${userId}/`,{
       method:'DELETE'
     })
     .then(res => res.json())
@@ -92,7 +94,23 @@ export default function ServiceTable() {
       window.location.href = ("/organizations")
       )
   };
-  return (
+  useEffect(() => {
+    fetch("https://eb25-196-216-93-135.in.ngrok.io/accounts/users/")
+      .then(response => {
+        if(response.ok){
+          console.log('hi')
+          return response.json()
+        }
+        throw response
+      })
+      .then(data => {
+        setUserData(data)
+        console.log(users)
+      }) 
+
+  }, [])
+  console.log(users);
+    return (
     <>
 
         <Box>
@@ -116,8 +134,7 @@ export default function ServiceTable() {
                 <AddCircleIcon />
                   Add User               
               </Link>
-              <Link onClick={handleDelete} ><DeleteIcon /></Link>
-              <Link  to ='./updateform'><SystemUpdateIcon /> </Link>
+              
             </Typography>
 
           <Grid container>
@@ -134,12 +151,13 @@ export default function ServiceTable() {
                       <TableCell align="right">Amount Due</TableCell>
                       <TableCell align="right">Service</TableCell>
                       <TableCell align="right">Status</TableCell>
+                      <TableCell align="right">Role</TableCell>
                       <TableCell align="right">Action</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {rows.map((row) => (
-                      <TableRow key={row.name}>
+                    {users.map((row) => (
+                      <TableRow key={row.id}>
                         <Link to="./aboutpage" style={{textDecoration: "none"}}>
                           <TableCell
                             component="th"
@@ -151,20 +169,24 @@ export default function ServiceTable() {
                               src="/static/images/avatar/1.jpg"
                             />
                             <Typography sx={{padding: "2px"}}>
-                              {row.name}
+                              {row.first_name}
                               <Typography
                                 sx={{color: "#9F9595", fontSize: "10px"}}
                               >
-                                {row.name}
+                                {row.email}
                               </Typography>
                             </Typography>
                           </TableCell>
                         </Link>
-                        <TableCell align="right">{row.calories}</TableCell>
-                        <TableCell align="right">{row.fat}</TableCell>
-                        <TableCell align="right">{row.fat}</TableCell>
-                        <TableCell align="right">{row.fat}</TableCell>
-                        <TableCell align="right">{row.fat}</TableCell>
+                        <TableCell align="right">{row.phone}</TableCell>
+                        <TableCell align="right">{row.postal_address}</TableCell>
+                        <TableCell align="right">{row.country}</TableCell>
+                        <TableCell align="right">{row.location}</TableCell>
+                        <TableCell align="right">{row.role}</TableCell>
+                        <TableCell align="right">              
+                        <Link  to ='./updateform'><SystemUpdateIcon /> </Link>
+                        <Link onClick={()=>handleDelete(row.id)} ><DeleteIcon /></Link>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>

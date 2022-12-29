@@ -23,6 +23,9 @@ const theme = createTheme({
   },
   Link:{
     textDecoration:'none'
+  },
+  div12:{
+    marginTop:'20px'
   }
 })
 

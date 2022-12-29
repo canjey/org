@@ -20,12 +20,12 @@ function OrgId(){
   console.log(params);
 }
 
-
+ 
 const OrgTable = () => {
   const [orgData, setOrgData] = useState([]);
 
     useEffect(() => {
-      fetch("http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/organizations/organizations/")
+      fetch("https://eb25-196-216-93-135.in.ngrok.io/organizations/organizations/")
         .then(response => {
           if(response.ok){
             console.log('hi')
