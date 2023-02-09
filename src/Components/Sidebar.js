@@ -1,36 +1,31 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Avatar from '@mui/material/Avatar';
-import Stack from '@mui/material/Stack';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import Grid from '@mui/material/Grid';
-import {Link} from "react-router-dom";
 import SettingsIcon from '@mui/icons-material/Settings';
+import Settings from '@mui/icons-material/Settings';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import IconButton from '@mui/material/IconButton';
 import Logout from '@mui/icons-material/Logout';
 import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
-import Settings from '@mui/icons-material/Settings';
+import {List, ListItemButton, ListItemText} from "@mui/material";
+import Grid from "@mui/material/Grid";
 
 // import Stats from './Stats';
 export const drawerWidth = 240;
 
 
 export default function Sidebar() {
-  const logout = () =>
-  {
+  const logout = () => {
     localStorage.removeItem('token');
     window.location.href = ("/login");
 
@@ -46,132 +41,152 @@ export default function Sidebar() {
   return (
     <>
       <Box sx={{display: 'flex'}}>
-      <Box sx={{ marginLeft: {md: '77%', sm:'40%'}, display: 'flex', alignItems: 'right', textAlign: 'center',mt:'20px' }}>
-        <Typography sx={{ mt:'5%', minWidth: 100 }}>About Us</Typography>
-        <Typography sx={{ mt:'5%', minWidth: 100 }}>Contact Us</Typography>
-        <Tooltip title="Account settings">
-          <IconButton
-            onClick={handleClick}
-            size="small"
-            sx={{ ml: 2 }}
-            aria-controls={open ? 'account-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-          >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
-          </IconButton>
-        </Tooltip>
-      </Box>
-      <Menu
-        anchorEl={anchorEl}
-        id="account-menu"
-        open={open}
-        onClose={handleClose}
-        onClick={handleClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-            mt: 1.5,
-            '& .MuiAvatar-root': {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
+        <Box sx={{
+          marginLeft: {md: '77%', sm: '40%'},
+          display: 'flex',
+          alignItems: 'right',
+          textAlign: 'center',
+          mt: '20px'
+        }}>
+          <Typography sx={{mt: '5%', minWidth: 100}}>About Us</Typography>
+          <Typography sx={{mt: '5%', minWidth: 100}}>Contact Us</Typography>
+          <Tooltip title="Account settings">
+            <IconButton
+              onClick={handleClick}
+              size="small"
+              sx={{ml: 2}}
+              aria-controls={open ? 'account-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+            >
+              <Avatar sx={{width: 32, height: 32}}>M</Avatar>
+            </IconButton>
+          </Tooltip>
+        </Box>
+        <Menu
+          anchorEl={anchorEl}
+          id="account-menu"
+          open={open}
+          onClose={handleClose}
+          onClick={handleClose}
+          PaperProps={{
+            elevation: 0,
+            sx: {
+              overflow: 'visible',
+              filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+              mt: 1.5,
+              '& .MuiAvatar-root': {
+                width: 32,
+                height: 32,
+                ml: -0.5,
+                mr: 1,
+              },
+              '&:before': {
+                content: '""',
+                display: 'block',
+                position: 'absolute',
+                top: 0,
+                right: 14,
+                width: 10,
+                height: 10,
+                bgcolor: 'background.paper',
+                transform: 'translateY(-50%) rotate(45deg)',
+                zIndex: 0,
+              },
             },
-            '&:before': {
-              content: '""',
-              display: 'block',
-              position: 'absolute',
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
-              zIndex: 0,
-            },
-          },
-        }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-      >
-        <MenuItem>
-          <Avatar /> Profile
-        </MenuItem>
-        <MenuItem>
-          <Avatar /> My account
-        </MenuItem>
-        <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <PersonAdd fontSize="small" />
-          </ListItemIcon>
-          Add another account
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon onClick={logout}>
-            <Logout onClick={logout} fontSize="small" />
-          </ListItemIcon>
-          <Typography onClick={logout}>Logout </Typography>
-        </MenuItem>
-      </Menu>
+          }}
+          transformOrigin={{horizontal: 'right', vertical: 'top'}}
+          anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+        >
+          <MenuItem>
+            <Avatar/> Profile
+          </MenuItem>
+          <MenuItem>
+            <Avatar/> My account
+          </MenuItem>
+          <Divider/>
+          <MenuItem>
+            <ListItemIcon>
+              <PersonAdd fontSize="small"/>
+            </ListItemIcon>
+            Add another account
+          </MenuItem>
+          <MenuItem>
+            <ListItemIcon>
+              <Settings fontSize="small"/>
+            </ListItemIcon>
+            Settings
+          </MenuItem>
+          <MenuItem>
+            <ListItemIcon onClick={logout}>
+              <Logout onClick={logout} fontSize="small"/>
+            </ListItemIcon>
+            <Typography onClick={logout}>Logout </Typography>
+          </MenuItem>
+        </Menu>
         <Drawer
           PaperProps={{
             sx: {
-              backgroundColor: "#5495D0",
-              color: "white",
+              backgroundColor: "#5495D0", color: "white",
             }
           }}
           variant="permanent"
           anchor="left"
         >
-          <Toolbar/>
-          <Divider sx={{marginTop: '10px'}}/>
-
-          <Grid sx={{marginTop: '30px', padding: '40px'}}>
-            <Typography sx={{display: 'flex'}}>
-              <BarChartIcon/> <Typography sx={{marginLeft: '10px'}}><Link to='/' style={{
-              textDecoration: 'none',
-              color: 'white'
-            }}>Dashboard </Link>
-            </Typography>
-            </Typography>
-            <Typography sx={{marginTop: '20px', display: 'flex'}}>
-              <PermContactCalendarIcon/>
-              <Typography sx={{marginLeft: '10px'}}><Link to='/organizations' style={{
-                textDecoration: 'none',
-                color: 'white'
-              }}>Organization </Link>
-              </Typography>
-            </Typography>
-            <Typography sx={{marginTop: '20px', display: 'flex'}}>
-              <ReceiptIcon/>
-              <Typography sx={{marginLeft: '10px'}}><Link to='/services' style={{
-                textDecoration: 'none',
-                color: 'white'
-              }}>Services </Link>
-              </Typography>
-
-            </Typography>
+          <List
+            sx={{marginX: '0.5rem'}}
+            component="nav"
+            aria-labelledby="back"
+          >
+            <ListItemButton sx={{borderRadius: "0.5rem", marginBottom: '0.5rem'}}>
+              <ListItemIcon sx={{color: "#fefefe"}}>
+                <ArrowBackIosIcon/>
+              </ListItemIcon>
+            </ListItemButton>
+          </List>
+          <Grid container justifyContent={'center'}>
+            <Grid item>
+              <Avatar alt="Remy Sharp" src="/logo.png" sx={{width: '7rem', height: '7rem', borderRadius: '100%'}}/>
+            </Grid>
           </Grid>
-          <Divider/>
-          <Typography sx={{marginTop: '300px', display: 'flex', padding: '40px',}}>
-            <SettingsIcon/>
-            <Typography sx={{marginLeft: '10px'}}><Link to='/services' style={{
-              textDecoration: 'none',
-              color: 'white'
-            }}>Settings </Link>
-            </Typography>
 
-          </Typography>
+          <Divider sx={{marginTop: '100px',}}/>
+          <List
+            sx={{marginX: '0.5rem'}}
+            component="nav"
+            aria-labelledby="site-menu"
+          >
+            <ListItemButton sx={{borderRadius: "0.5rem", marginBottom: '0.5rem'}}>
+              <ListItemIcon sx={{color: "#fefefe"}}>
+                <BarChartIcon/>
+              </ListItemIcon>
+              <ListItemText primary="Dashboard"/>
+            </ListItemButton>
+            <ListItemButton sx={{borderRadius: "0.5rem", marginBottom: '0.5rem'}}>
+              <ListItemIcon sx={{color: "#fefefe"}}>
+                <PermContactCalendarIcon/>
+              </ListItemIcon>
+              <ListItemText primary="Organization"/>
+            </ListItemButton>
+            <ListItemButton sx={{borderRadius: "0.5rem", marginBottom: '0.5rem'}}>
+              <ListItemIcon sx={{color: "#fefefe"}}>
+                <ReceiptIcon/>
+              </ListItemIcon>
+              <ListItemText primary="Services"/>
+            </ListItemButton>
+          </List>
+          <Divider/>
+          <List
+            sx={{marginX: '0.5rem', marginTop: '300px'}}
+            component="nav"
+          >
+            <ListItemButton sx={{borderRadius: "0.5rem", marginBottom: '0.5rem'}}>
+              <ListItemIcon sx={{color: "#fefefe"}}>
+                <SettingsIcon/>
+              </ListItemIcon>
+              <ListItemText primary="Settings"/>
+            </ListItemButton>
+          </List>
         </Drawer>
       </Box>
     </>
