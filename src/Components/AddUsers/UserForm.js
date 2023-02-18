@@ -3,13 +3,17 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+
 
 export default function OrganizationForm() {
   const [first_name, setFirstName] = useState("");
@@ -18,40 +22,79 @@ export default function OrganizationForm() {
   const [country, setCountry] = useState("");
   const [location, setLocation] = useState("");
   const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
   const [role, setRole] = useState("");
   const [postal_address, setPostal_Address] = useState("");
   const [message, setMessage] = useState("");
+  const token = localStorage.getItem("token");
+  const [organization, setOrganization] = useState([]);
+  const [selectedOrganization, setSelectedOrganization] = useState("");
+
+  useEffect(() => {
+    fetch(
+      'http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/organizations/organizations/',
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${token}`
+        }
+      }
+    )
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw response;
+      })
+      .then(data => {
+        setOrganization(data);
+      });
+  }, []);
+  const handleChange =(e)=>{
+    setSelectedOrganization(e.target.value)
+  }
+
+  console.log(organization);
+  console.log(selectedOrganization);
 
   const handleSubmit = (e) => {
+    const token = localStorage.getItem("token");
     e.preventDefault();
-    let res = fetch("https://eb25-196-216-93-135.in.ngrok.io/accounts/users/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        first_name: first_name,
-        last_name: last_name,
-        phone: phone,
-        country: country,
-        location: location,
-        email: email,
-        role: role,
-        postal_address: postal_address
-      })
-    });
-    setFirstName("");
-    setLastName("");
-    setPhone("");
-    setPostal_Address("");
-    setCountry("");
-    setRole("");
-    setEmail("");
-    setMessage("");
-    setLocation("");
+    let res = fetch(
+      "http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/accounts/users/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`
+        },
+        body: JSON.stringify({
+          first_name: first_name,
+          last_name: last_name,
+          phone: phone,
+          country: country,
+          location: location,
+          email: email,
+          organization: selectedOrganization,
+          role: role,
+          postal_address: postal_address
+        })
+      }
+    );
+    // setFirstName("");
+    // setLastName("");
+    // setPhone("");
+    // setPostal_Address("");
+    // setCountry("");
+    // setRole("");
+    // setEmail("");
+    // setCompany("");
+    // setMessage("");
+    // setLocation("");
 
     let resJson = res.json();
-    if (res.status === 200) {
+    if (res.status === 201) {
       console.log("Submitted");
       window.location.href = "/organizations";
     } else {
@@ -140,6 +183,24 @@ export default function OrganizationForm() {
                 </div>
 
                 <div style={{ marginTop: "10px" }}>
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Organization</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={selectedOrganization}
+                      label="Organization"
+                      onChange={handleChange}
+                     >{organization.map((rows) =>(
+                      <MenuItem value={rows.id}>{rows.name}</MenuItem>
+
+                    ))}
+                     
+                      
+                    </Select>
+                  </FormControl>
+                </div>
+                <div style={{ marginTop: "10px" }}>
                   <TextField
                     required
                     fullWidth
@@ -151,7 +212,7 @@ export default function OrganizationForm() {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-                <div style={{ marginTop: "10px", display:'flex'}}>
+                <div style={{ marginTop: "10px", display: "flex" }}>
                   <FormLabel id="demo-radio-buttons-group-label">
                     Job Role
                   </FormLabel>
@@ -160,7 +221,7 @@ export default function OrganizationForm() {
                     // defaultValue="STAFF"
                     name="role"
                     onChange={(e) => setRole(e.target.value)}
-                    sx={{ml:'20px', mt:'-5px'}}
+                    sx={{ ml: "20px", mt: "-5px" }}
                   >
                     <FormControlLabel
                       value="ADMIN"
@@ -250,6 +311,12 @@ export default function OrganizationForm() {
               Address:
               <Typography sx={{ color: "green", ml: "10px", fontSize: "15px" }}>
                 {postal_address}
+              </Typography>
+            </Typography>
+            <Typography sx={{ mt: "10px", display: "flex" }}>
+              Company Name:
+              <Typography sx={{ color: "green", ml: "10px", fontSize: "15px" }}>
+                {selectedOrganization}
               </Typography>
             </Typography>
             <Typography sx={{ mt: "10px", display: "flex" }}>

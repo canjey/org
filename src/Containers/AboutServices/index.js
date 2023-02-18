@@ -1,6 +1,7 @@
 import * as React from "react";
 import Sidebar from '../../Components/Sidebar'
-import OrganizationForm from '../../Components/AddOrganization/OrganizationForm'
+import AboutServices from '../../Components/Services/AboutServices.js'
+import Layout from "../../Components/Layout";
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -12,14 +13,15 @@ const theme = createTheme({
     },
   })
 
-export default function AddOrganization(){
+export default function AboutServicesDetails(){
     return(
         <>
+        <Layout>
         <ThemeProvider theme={theme}>
-        <Sidebar/>
-        <OrganizationForm/>
+        <AboutServices/>
         </ThemeProvider>
+        </Layout>
         </>
     )
 
-} 
+}

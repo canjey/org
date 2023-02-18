@@ -11,8 +11,7 @@ export default function AboutOrganization(){
     return(
         <>
         <Layout>
-        <AboutPage/>
-        <ServiceTable />        
+        <AboutPage/>       
         </Layout>
         </>
     )

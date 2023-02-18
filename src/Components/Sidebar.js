@@ -97,12 +97,15 @@ export default function Sidebar() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem>
+        <Link to={'/profile'} style={{textDecoration:'none', color:'black'}}>
+          <MenuItem>
           <Avatar /> Profile
         </MenuItem>
-        <MenuItem>
-          <Avatar /> My account
+        </Link>
+        <Link to={'/changePassword'} style={{textDecoration:'none',  color:'black'}}><MenuItem>
+          <Avatar /> Change Password
         </MenuItem>
+        </Link>
         <Divider />
         <MenuItem>
           <ListItemIcon>

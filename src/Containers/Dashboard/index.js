@@ -4,6 +4,14 @@ import OrgTable from '../../Components/Table';
 import Layout from "../../Components/Layout";
 import TopBar from "../../Components/Topbar.js";
 
+function DashboardPage(){
+  return(
+    <>
+    </>
+  ) 
+}
+
+ 
 export default function Dashboard() {
   return (
     <Layout>
@@ -12,4 +20,5 @@ export default function Dashboard() {
     </Layout>
   )
 }
- 
+
+

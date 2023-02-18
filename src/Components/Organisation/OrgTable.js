@@ -69,13 +69,20 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 }));
 
 export default function OrgTable() {
+  const token = localStorage.getItem('token');
   const handleDelete =() =>{
     fetch()
   }
   const [orgData, setOrgData] = useState([]);
 
   useEffect(() =>{
-    fetch('http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/organizations/organizations/')
+    fetch('http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/organizations/organizations/',{
+       method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${token}`
+        },
+    })
     .then(response => {
       if (response.ok){
         return response.json()
@@ -103,14 +110,22 @@ export default function OrgTable() {
                 fontFamily: "inter"
               }}
             >
-              All Organisations
+              All Organizations
             </Typography>
           </Grid>
           <Grid item sm={4} md={2} sx={{ marginTop: "20px" }}>
-            <Link to="./addorganization" style={{ textDecoration: "none" }}>
-              <AddCircleIcon />
-              Add Organisation
-            </Link>
+          <Link
+                to={"/organizations/addorganization"}
+                style={{ textDecoration: "none" }}
+              >
+                <Typography
+                  align="left"
+                  sx={{ marginTop: "-10px", padding: "10px", display: "flex" }}
+                >
+                  <AddCircleIcon sx={{ color: "blue" }} />
+                  <Typography> Add Organization </Typography>
+                </Typography>
+              </Link>
           </Grid>
         </Grid>
 
@@ -177,7 +192,7 @@ export default function OrgTable() {
                   {orgData.map((row) => (
                     <TableRow key={row.id}>
                       <Link
-                        to={`/organizations/${row.id}/aboutpage`}
+                        to={`/organizations/${row.id}/`}
                         style={{ textDecoration: "none" }}
                       >
                         <TableCell

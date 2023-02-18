@@ -22,6 +22,7 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import DeleteIcon from '@mui/icons-material/Delete';
 import SystemUpdateIcon from '@mui/icons-material/SystemUpdate';
 import { useParams } from 'react-router-dom';
+import {useState, useEffect} from "react"
 
 function createData(name, calories, fat) {
   return {name, calories, fat};
@@ -79,12 +80,19 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
     }
   }
 }));
+const token = localStorage.getItem('token');
 
-export default function UserTable() {
+export default function ServiceTable() {
+  const [users, setUserData] = useState([]);
+  const token = localStorage.getItem('token');
   const {id} = useParams();
-  const handleDelete =()=>{
-    fetch(`http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/organizations/organizations/${id}/`,{
-      method:'DELETE'
+  const handleDelete =(userId)=>{
+    fetch(`http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/accounts/users/${userId}/`,{
+      method:'DELETE',
+      headers:{
+        "Authorization": `Token ${token}`
+      },
+      
     })
     .then(res => res.json())
     .then (console.log("deleted"))
@@ -92,7 +100,30 @@ export default function UserTable() {
       window.location.href = ("/organizations")
       )
   };
-  return (
+
+  useEffect(() =>{
+    fetch(`http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/organizations/organizations/${id}/users/`,{
+       method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${token}`
+        },
+    })
+    .then(response => {
+      if (response.ok){
+        return response.json()
+      }
+      throw response;
+    })
+    .then (data => {
+      setUserData(data)
+    })
+    
+
+  }, [])
+
+  console.log(users);
+    return (
     <>
 
         <Box>
@@ -112,12 +143,19 @@ export default function UserTable() {
             </Grid> */}
           </Grid>
           <Typography component="p" sx={{float:'right', mt:'-30px'}}>
-              <Link to="./adduser" style={{textDecoration: "none", justifyContent:'flex-end'}}>
-                <AddCircleIcon />
-                  Add User               
+          <Link
+                to={`/organizations/${id}/adduser`}
+                style={{ textDecoration: "none" }}
+              >
+                <Typography
+                  align="left"
+                  sx={{ marginTop: "-10px", padding: "10px", display: "flex" }}
+                >
+                  <AddCircleIcon sx={{ color: "blue" }} />
+                  <Typography> Add User </Typography>
+                </Typography>
               </Link>
-              <Link onClick={handleDelete} ><DeleteIcon /></Link>
-              <SystemUpdateIcon /> 
+              
             </Typography>
 
           <Grid container>
@@ -134,12 +172,13 @@ export default function UserTable() {
                       <TableCell align="right">Amount Due</TableCell>
                       <TableCell align="right">Service</TableCell>
                       <TableCell align="right">Status</TableCell>
+                      <TableCell align="right">Role</TableCell>
                       <TableCell align="right">Action</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {rows.map((row) => (
-                      <TableRow key={row.name}>
+                    {users.map((row) => (
+                      <TableRow key={row.id}>
                         <Link to="./aboutpage" style={{textDecoration: "none"}}>
                           <TableCell
                             component="th"
@@ -151,20 +190,24 @@ export default function UserTable() {
                               src="/static/images/avatar/1.jpg"
                             />
                             <Typography sx={{padding: "2px"}}>
-                              {row.name}
+                              {row.first_name}
                               <Typography
                                 sx={{color: "#9F9595", fontSize: "10px"}}
                               >
-                                {row.name}
+                                {row.email}
                               </Typography>
                             </Typography>
                           </TableCell>
                         </Link>
-                        <TableCell align="right">{row.calories}</TableCell>
-                        <TableCell align="right">{row.fat}</TableCell>
-                        <TableCell align="right">{row.fat}</TableCell>
-                        <TableCell align="right">{row.fat}</TableCell>
-                        <TableCell align="right">{row.fat}</TableCell>
+                        <TableCell align="right">{row.phone}</TableCell>
+                        <TableCell align="right">{row.postal_address}</TableCell>
+                        <TableCell align="right">{row.country}</TableCell>
+                        <TableCell align="right">{row.location}</TableCell>
+                        <TableCell align="right">{row.role}</TableCell>
+                        <TableCell align="right">              
+                        <Link  to ='./updateform'><SystemUpdateIcon /> </Link>
+                        <Link onClick={()=>handleDelete(row.id)} ><DeleteIcon /></Link>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
