@@ -31,6 +31,7 @@ export default function Stats() {
   const token = localStorage.getItem("token");
   const [value, setValue] = useState(0);
   const [table, setTable] = useState(true);
+  const [tableData, setTableData] = useState("");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -177,17 +178,18 @@ export default function Stats() {
         scrollButtons="auto"
         aria-label="scrollable auto tabs example"
       >
-                <Tab label=" Subscribed Services" />
-                <Tab label="Users" />
+                <Tab value="services" label=" Subscribed Services" />
+                <Tab label="Users" onClick={handleUsers()}/>
                 <Tab label="Invoices" />
               </Tabs>
             </Grid>
           </Grid>
         </Box>
 
-        {/* <Box sx={{ marginTop: "20px" }} style={{display: table ? 'block' : 'none' }}>
+        <Box sx={{ marginTop: "20px" }} style={{display: table ? 'block' : 'none' }}>
+          
           <ServiceTable />
-        </Box> */}
+        </Box>
       </Box>
       {/* <ServiceTable services={orgDetails.services} /> */}
     </>

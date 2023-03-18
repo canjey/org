@@ -19,6 +19,8 @@ import Tooltip from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import {List, ListItemButton, ListItemText} from "@mui/material";
 import Grid from "@mui/material/Grid";
+import { Route, Link, BrowserRouter as Router } from 'react-router-dom'  
+
 
 // import Stats from './Stats';
 export const drawerWidth = 240;
@@ -94,25 +96,11 @@ export default function Sidebar() {
                 zIndex: 0,
               },
             },
-<<<<<<< HEAD
-            '&:before': {
-              content: '""',
-              display: 'block',
-              position: 'absolute',
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
-              zIndex: 0,
-            },
-          },
-        }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-      >
-        <Link to={'/profile'} style={{textDecoration:'none', color:'black'}}>
+          }}
+          transformOrigin={{horizontal: 'right', vertical: 'top'}}
+          anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+        >
+                 <Link to={'/profile'} style={{textDecoration:'none', color:'black'}}>
           <MenuItem>
           <Avatar /> Profile
         </MenuItem>
@@ -140,39 +128,7 @@ export default function Sidebar() {
           </ListItemIcon>
           <Typography onClick={logout}>Logout </Typography>
         </MenuItem>
-      </Menu>
-=======
-          }}
-          transformOrigin={{horizontal: 'right', vertical: 'top'}}
-          anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-        >
-          <MenuItem>
-            <Avatar/> Profile
-          </MenuItem>
-          <MenuItem>
-            <Avatar/> My account
-          </MenuItem>
-          <Divider/>
-          <MenuItem>
-            <ListItemIcon>
-              <PersonAdd fontSize="small"/>
-            </ListItemIcon>
-            Add another account
-          </MenuItem>
-          <MenuItem>
-            <ListItemIcon>
-              <Settings fontSize="small"/>
-            </ListItemIcon>
-            Settings
-          </MenuItem>
-          <MenuItem>
-            <ListItemIcon onClick={logout}>
-              <Logout onClick={logout} fontSize="small"/>
-            </ListItemIcon>
-            <Typography onClick={logout}>Logout </Typography>
-          </MenuItem>
         </Menu>
->>>>>>> 5033e692514794ce0ebdcaee1b9c64714d38b5a9
         <Drawer
           PaperProps={{
             sx: {
@@ -205,28 +161,35 @@ export default function Sidebar() {
             component="nav"
             aria-labelledby="site-menu"
           >
+            <Link to='/' style={{textDecoration:'none', color:'white'}}>
             <ListItemButton sx={{borderRadius: "0.5rem", marginBottom: '0.5rem'}}>
               <ListItemIcon sx={{color: "#fefefe"}}>
                 <BarChartIcon/>
               </ListItemIcon>
               <ListItemText primary="Dashboard"/>
             </ListItemButton>
+            </Link>
+            <Link to='/organizations/' style={{textDecoration:'none', color:'white'}}>
             <ListItemButton sx={{borderRadius: "0.5rem", marginBottom: '0.5rem'}}>
               <ListItemIcon sx={{color: "#fefefe"}}>
                 <PermContactCalendarIcon/>
               </ListItemIcon>
               <ListItemText primary="Organization"/>
             </ListItemButton>
+            </Link>
+            <Link to='/services' style={{textDecoration:'none', color:'white'}}>
             <ListItemButton sx={{borderRadius: "0.5rem", marginBottom: '0.5rem'}}>
               <ListItemIcon sx={{color: "#fefefe"}}>
                 <ReceiptIcon/>
               </ListItemIcon>
               <ListItemText primary="Services"/>
+              
             </ListItemButton>
+            </Link>
           </List>
           <Divider/>
           <List
-            sx={{marginX: '0.5rem', marginTop: '300px'}}
+            sx={{marginX: '0.5rem', marginTop: '100px'}}
             component="nav"
           >
             <ListItemButton sx={{borderRadius: "0.5rem", marginBottom: '0.5rem'}}>

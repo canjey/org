@@ -70,7 +70,7 @@ export default function Stats() {
                     color="text.secondary"
                     gutterBottom
                   >
-                    Total Services
+                    Active Services
                   </Typography>
                   <Typography sx={{ display: "flex", textAlign: "center" }}>
                     <Typography

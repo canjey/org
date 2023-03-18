@@ -118,7 +118,7 @@ export default function ServiceTable() {
           </Grid>
           <Typography component="p" sx={{float:'right', mt:'-30px'}}>
           <Link
-                to="./adduser"
+                to="/services/"
                 style={{ textDecoration: "none" }}
               >
                 <Typography
