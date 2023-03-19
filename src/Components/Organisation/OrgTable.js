@@ -22,6 +22,8 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import {useState, useEffect} from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SystemUpdateIcon from '@mui/icons-material/SystemUpdate';
+import {actions} from  '../../store/organizations'
+import { useSelector, useDispatch } from 'react-redux'
 
 
 const Search = styled("div")(({theme}) => ({
@@ -69,33 +71,15 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 }));
 
 export default function OrgTable() {
-  const token = localStorage.getItem('token');
-  const handleDelete =() =>{
-    fetch()
-  }
-  const [orgData, setOrgData] = useState([]);
-
+  const dispatch = useDispatch();
+  const organizations = useSelector(
+    (state) => state.organizations.organizations
+  )
   useEffect(() =>{
-    fetch('http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/organizations/organizations/',{
-       method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Token ${token}`
-        },
-    })
-    .then(response => {
-      if (response.ok){
-        return response.json()
-      }
-      throw response;
-    })
-    .then (data => {
-      setOrgData(data)
-    })
-    
-
+    dispatch(
+      actions.fetchOrganizations()
+    )
   }, [])
-
   return (
     <>
       <Box>
@@ -189,7 +173,7 @@ export default function OrgTable() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {orgData.map((row) => (
+                  {organizations.map((row) => (
                     <TableRow key={row.id}>
                       <Link
                         to={`/organizations/${row.id}/`}

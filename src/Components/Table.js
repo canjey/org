@@ -69,7 +69,6 @@ const OrgTable = () => {
     )
       .then((response) => {
         if (response.ok) {
-          console.log("hi");
           return response.json();
         }
         throw response;
