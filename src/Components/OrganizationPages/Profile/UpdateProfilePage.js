@@ -10,11 +10,164 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-import axiosInstance from '../../../axios.js'
+import axiosInstance from "../../../axios.js";
 
+function ProfilePageForm({ profileData }) {
+  const [message, setMessage] = useState("");
+  const [orgName, setOrgName] = useState("");
+  const [firstName, setFirstName] = useState(profileData.first_name);
+  const [lastName, setLastName] = useState(profileData.last_name);
+  const [email, setEmail] = useState(profileData.email);
+  const [phone, setPhone] = useState(profileData.phone);
+  const [location, setLocation] = useState(profileData.location);
+  const [country, setCountry] = useState(profileData.country);
+  const [address, setAddress] = useState(profileData.postal_address);
+  const [name, setName] = useState(profileData.name);
 
-export default function ProfilePage() {
-  const [profileData, setProfileData] = useState([]);
+  const token = localStorage.getItem("token");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axiosInstance()
+      .put(`/accounts/users/${profileData.id}/`, {
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        phone: phone,
+        location: location,
+        country: country,
+        postal_address: address,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  return (
+    <>
+    <form onSubmit={handleSubmit}>
+    <Box>
+          <div
+            style={{
+              justifyContent: "space-between",
+              marginTop: "10px"
+            }}
+          >
+            <TextField
+              fullWidth
+              id="outlined-required"
+              type="text"
+              name="first_name"
+              value={firstName}
+              onChange={(e) => {
+                setFirstName(e.target.value);
+              }}
+            />
+            <TextField
+              fullWidth
+              id="outlined-required"
+              type="text"
+              name="last_name"
+              label="Last Name"
+              value={lastName}
+              onChange={(e) => {
+                setLastName(e.target.value);
+              }}
+            />
+            <TextField
+              fullWidth
+              id="outlined-required"
+              type="text"
+              name="phone"
+              value={phone}
+              onChange={(e) => {
+                setPhone(e.target.value);
+              }}
+            />
+          </div>
+          <div style={{ marginTop: "10px" }}>
+            <TextField
+              fullWidth
+              id="outlined-required"
+              type="text"
+              name=" country"
+              value={country}
+              onChange={(e) => {
+                setCountry(e.target.value);
+              }}
+            />
+            <TextField
+              fullWidth
+              id="outlined-required"
+              name="location"
+              value={location}
+              type="text"
+              onChange={(e) => {
+                setLocation(e.target.value);
+              }}
+            />
+            <TextField
+              fullWidth
+              id="outlined-required"
+              type="text"
+              name="postal_address"
+              value={address}
+              onChange={(e) => {
+                setAddress(e.target.value);
+              }}
+
+            />
+          </div>
+
+          <div style={{ marginTop: "10px" }}>
+            <TextField
+              fullWidth
+              id="outlined-required"
+              type="email"
+              name="email"
+              value={email}
+              onChange={(e) => {
+                setOrgName(e.target.email);
+              }}
+            />
+          </div>
+         
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginTop: "30px"
+            }}
+          >
+            <div>
+              <Button
+                variant="contained"
+                sx={{ color: "black", backgroundColor: "#E8F0FD" }}
+              >
+                Cancel
+              </Button>
+            </div>
+            <div sxtyle={{ marginLeft: "20%" }}>
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{ color: "white" }}
+              >
+                Click to Update
+              </Button>
+            </div>
+          </div>
+          <div className="message">{message ? <p>{message}</p> : null}</div>
+        </Box>
+      </form>
+    </>
+  );
+}
+
+export default function UpdateProfilePage() {
+  const [profileData, setProfileData] = useState(null);
   const [organization, setOrganization] = useState([]);
   const [message, setMessage] = useState("");
   const [orgName, setOrgName] = useState("");
@@ -26,28 +179,10 @@ export default function ProfilePage() {
 
   const token = localStorage.getItem("token");
 
-  const handleSubmit =(e) =>{
-    e.preventDefault()
-    axiosInstance().put('/accounts/users/authenticated-user', {
-      first_name: firstName,
-      last_name: lastName,
-      email: email,
-      phone:phone,
-      location:location
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
 
   useEffect(() => {
     axiosInstance()
-      .get(
-        "/accounts/users/authenticated-user/"
-      )
+      .get("/accounts/users/authenticated-user/")
       .then(function (response) {
         // handle success
         console.log(response.data);
@@ -62,21 +197,27 @@ export default function ProfilePage() {
       });
   }, []);
 
-  useEffect(() =>{
-    fetch("http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/accounts/users/organization",{
-      method:"GET",
-      headers:{
-        "Content-Type":'application/json',
-        "Authorization":`Token ${token}`
+  useEffect(() => {
+    fetch(
+      "http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/accounts/users/organization",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`
+        }
       }
-    })
-    .then(response => response.json())
-    .then((data) =>{
-      setOrganization(data.data)
-    })
-  }, [])
-  console.log(profileData)
-  console.log(organization)
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setOrganization(data.data);
+      });
+  }, []);
+  if (profileData == null) {
+    return null;
+  }
+  console.log(profileData);
+  console.log(organization);
   return (
     <>
       <Box sx={{ mt: "-80px" }}>
@@ -88,128 +229,10 @@ export default function ProfilePage() {
                 marginTop: "60px"
               }}
             >
-              <Typography sx={{ ml: "20px" }}>Update Profile Information</Typography>
-              <form onSubmit={handleSubmit}>
-                <Box>
-                  <div
-                    style={{
-                      justifyContent: "space-between",
-                      marginTop: "10px"
-                    }}
-                  >
-                    <TextField
-                      fullWidth                      
-                      id="outlined-required"
-                      type="text"
-                      name="first_name"
-                      valueDefault={profileData.first_name}
-                      onChange={(e) =>{
-                        setFirstName(e.target.value)
-                      }}
-                    />
-                    <TextField
-                      fullWidth
-                      
-                      id="outlined-required"
-                      type="text"
-                      name="last_name"
-                      valueDefault={profileData.last_name}
-                      onChange={(e) =>{
-                        setFirstName(e.target.value)
-                      }}
-                    />
-                    <TextField
-                      
-                      fullWidth
-                      id="outlined-required"
-                      type="text"
-                      name="phone"
-                      value={profileData.phone}
-                      />
-                  </div>
-                  <div style={{ marginTop: "10px" }}>
-                    <TextField
-                      fullWidth
-                      
-                      id="outlined-required"
-                      type="text"
-                      name=" country"
-                      value={profileData.country}
-                      />
-                    <TextField
-                      
-                      fullWidth
-                      id="outlined-required"
-                      name="location"
-                      value={profileData.location}
-                      type="text"
-                      />
-                    <TextField
-                      
-                      fullWidth
-                      id="outlined-required"
-                      type="text"
-                      name="postal_address"
-                      value={profileData.postal_address}
-                     />
-                  </div>
-
-                  <div style={{ marginTop: "10px" }}>
-                    <TextField
-                      
-                      fullWidth
-                      id="outlined-required"
-                      type="email"
-                      name="email"
-                      value={profileData.email}
-                      onChange={(e) =>{
-                        setOrgName(e.target.email)
-                      }}
-                      />
-                  </div>
-                  <div style={{ marginTop: "10px", display: "flex" }}>
-                  <TextField
-                      placeHolder="email"
-                      fullWidth
-                      id="outlined-required"
-                      type="email"
-                      name="email"
-                      value={organization.name}
-                      onChange={(e) =>{
-                        setOrgName(e.target.value)
-                      }}
-                      />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginTop: "30px"
-                    }}
-                  >
-                    <div>
-                      <Button
-                        variant="contained"
-                        sx={{ color: "black", backgroundColor: "#E8F0FD" }}
-                      >
-                        Cancel
-                      </Button>
-                    </div>
-                    <div sxtyle={{ marginLeft: "20%" }}>
-                      <Button
-                        variant="contained"
-                        sx={{ color: "white" }}
-                        href="./updateProfile"
-                      >
-                        Click to Update
-                      </Button>
-                    </div>
-                  </div>
-                  <div className="message">
-                    {message ? <p>{message}</p> : null}
-                  </div>
-                </Box>
-              </form>
+              <Typography sx={{ ml: "20px" }}>
+                Update Profile Information
+              </Typography>
+              <ProfilePageForm profileData={profileData} />
             </Box>
           </Grid>
           <Grid

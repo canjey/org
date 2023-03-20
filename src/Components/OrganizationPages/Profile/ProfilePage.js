@@ -10,8 +10,24 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-import axiosInstance from '../../../axios.js'
+import axiosInstance from "../../../axios.js";
+import Modal from "@mui/material/Modal";
+import UpdateProfilePage from "./UpdateProfilePage.js";
+import { useSelector, useDispatch } from 'react-redux'
+import {fetchUser} from '../../../store/user/slice.js'
 
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 500,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4
+};
 
 export default function ProfilePage() {
   const [profileData, setProfileData] = useState([]);
@@ -19,44 +35,44 @@ export default function ProfilePage() {
   const [message, setMessage] = useState("");
   const token = localStorage.getItem("token");
 
+  // Modal Code
+ 
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  // Redux
+  const dispatch = useDispatch();
+  const user = useSelector(
+    (state) => state.user.user
+  )
+  const [serviceData, setServiceData] = useState([]);
 
   useEffect(() => {
-    axiosInstance()
-      .get(
-        "/accounts/users/authenticated-user/"
-      )
-      .then(function (response) {
-        // handle success
-        console.log(response.data.data);
-        setProfileData(response.data.data);
-        console.log(profileData);
+    dispatch(
+      fetchUser()
+    )
+  }, []);
+  console.log(user.first_name);
 
 
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .finally(function () {
-        // always executed
+  useEffect(() => {
+    fetch(
+      "http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/accounts/users/organization",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${token}`
+        }
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setOrganization(data.data);
       });
   }, []);
-
-  useEffect(() =>{
-    fetch("http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/accounts/users/organization",{
-      method:"GET",
-      headers:{
-        "Content-Type":'application/json',
-        "Authorization":`Token ${token}`
-      }
-    })
-    .then(response => response.json())
-    .then((data) =>{
-      setOrganization(data.data)
-    })
-  }, [])
-  console.log(profileData)
-  console.log(organization)
+  console.log(organization);
   return (
     <>
       <Box sx={{ mt: "-80px" }}>
@@ -69,7 +85,7 @@ export default function ProfilePage() {
               }}
             >
               <Typography sx={{ ml: "20px" }}>Profile Information</Typography>
-              <form >
+              <form>
                 <Box>
                   <div
                     style={{
@@ -80,10 +96,8 @@ export default function ProfilePage() {
                     <TextField
                       fullWidth
                       disabled
-                      id="outlined-required"
-                      type="text"
-                      name="first_name"
-                      value={profileData.first_name}
+                      id="standard-disabled"
+                      value={user.first_name}
                     />
                     <TextField
                       fullWidth
@@ -91,7 +105,7 @@ export default function ProfilePage() {
                       id="outlined-required"
                       type="text"
                       name="last_name"
-                      value={profileData.last_name}
+                      value={user.last_name}
                     />
                     <TextField
                       disabled
@@ -99,8 +113,8 @@ export default function ProfilePage() {
                       id="outlined-required"
                       type="text"
                       name="phone"
-                      value={profileData.phone}
-                      />
+                      value={user.phone}
+                    />
                   </div>
                   <div style={{ marginTop: "10px" }}>
                     <TextField
@@ -109,24 +123,24 @@ export default function ProfilePage() {
                       id="outlined-required"
                       type="text"
                       name=" country"
-                      value={profileData.country}
-                      />
+                      value={user.country}
+                    />
                     <TextField
                       disabled
                       fullWidth
                       id="outlined-required"
                       name="location"
-                      value={profileData.city}
+                      value={user.location}
                       type="text"
-                      />
+                    />
                     <TextField
                       disabled
                       fullWidth
                       id="outlined-required"
                       type="text"
                       name="postal_address"
-                      value={profileData.postal_address}
-                     />
+                      value={user.postal_address}
+                    />
                   </div>
 
                   <div style={{ marginTop: "10px" }}>
@@ -136,18 +150,18 @@ export default function ProfilePage() {
                       id="outlined-required"
                       type="email"
                       name="email"
-                      value={profileData.email}
-                      />
+                      value={user.email}
+                    />
                   </div>
                   <div style={{ marginTop: "10px", display: "flex" }}>
-                  <TextField
+                    <TextField
                       disabled
                       fullWidth
                       id="outlined-required"
                       type="email"
                       name="email"
-                      value={organization.name}
-                      />
+                      value={user.name}
+                    />
                   </div>
                   <div
                     style={{
@@ -165,13 +179,17 @@ export default function ProfilePage() {
                       </Button>
                     </div>
                     <div sxtyle={{ marginLeft: "20%" }}>
-                      <Button
-                        variant="contained"
-                        sx={{ color: "white" }}
-                        href="./updateProfile"
+                      <Button onClick={handleOpen}>Click to Update</Button>
+                      <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
                       >
-                        Click to Update
-                      </Button>
+                        <Box sx={style}>
+                          <UpdateProfilePage />
+                        </Box>
+                      </Modal>
                     </div>
                   </div>
                   <div className="message">

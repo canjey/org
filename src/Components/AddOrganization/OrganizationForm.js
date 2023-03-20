@@ -62,13 +62,13 @@ export default function OrganizationForm() {
   }; 
 
   return (
-    <Box sx={{ mt: "-80px", ml: "100px" }}>
+    <Box sx={{ mt: "-80px",  }}>
       <Grid container>
         <Grid item xs={6} sm={6}>
           <Box
             sx={{
               "& .MuiTextField-root": { m: 1 },
-              marginLeft: "100px",
+              
               marginTop: "100px"
             }}
           >
@@ -144,59 +144,7 @@ export default function OrganizationForm() {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-                {/* <div style={{ marginTop: "10px" }}>
-                  <TextField
-                    required
-                    fullWidth
-                    id="outlined-required"
-                    label="Company Description"
-                    type="text"
-                    name="description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                  />
-                </div>
-                <div style={{ marginTop: "10px" }}>
-                  <input type="file" onChange={handleChange}/>
-                </div> */}
-                {/* <div style={{marginTop:'10px'}}>
-        <TextField
-          required
-          id="outlined-required"
-          label="Document Name"
-          
-        />
-        <TextField
-          required
-          id="outlined-required"
-          label="Document Description"
-          
-        />
-        <Button variant="contained" xs={12} sx={{color:'white', marginTop:'20px'}}>Upload</Button>
-        
 
-       
-      </div>
-      <div style={{marginTop:'10px'}}>
-        <TextField
-          required
-          id="outlined-required"
-          label="Company Name"
-          
-        />
-        <TextField
-          required
-          id="outlined-required"
-          label="Company Name"
-          
-        />
-        <TextField
-          required
-          id="outlined-required"
-          label="Company Name"
-          
-        />
-      </div> */}
                 <div
                   style={{
                     display: "flex",
@@ -233,7 +181,7 @@ export default function OrganizationForm() {
           item
           xs={6}
           sm={6}
-          sx={{ padding: { md: "20px", sm: "10%" }, marginTop: { sm: "10%" } }}
+          sx={{ padding: { md: "20px", sm: "10%" }, marginTop: { sm: "10%", md:'20%' }, }}
         >
           <Box component="div" id="details">
             <Typography sx={{ display: "flex" }}>

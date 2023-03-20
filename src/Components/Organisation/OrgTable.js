@@ -6,27 +6,33 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import {Typography} from "@mui/material";
+import { Typography } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Avatar from "@mui/material/Avatar";
 import SearchIcon from "@mui/icons-material/Search";
-import {alpha, createTheme, styled, ThemeProvider} from "@mui/material/styles";
+import {
+  alpha,
+  createTheme,
+  styled,
+  ThemeProvider
+} from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import Box from "@mui/material/Box";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import DownloadIcon from "@mui/icons-material/Download";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import {useState, useEffect} from 'react';
-import DeleteIcon from '@mui/icons-material/Delete';
-import SystemUpdateIcon from '@mui/icons-material/SystemUpdate';
-import {actions} from  '../../store/organizations'
-import { useSelector, useDispatch } from 'react-redux'
+import { useState, useEffect } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
+import SystemUpdateIcon from "@mui/icons-material/SystemUpdate";
+import { actions } from "../../store/organizations";
+import { useSelector, useDispatch } from "react-redux";
+import Modal from '@mui/material/Modal';
+import OrganizationForm from '../AddOrganization/OrganizationForm'
 
-
-const Search = styled("div")(({theme}) => ({
+const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
   borderStyle: "groove",
@@ -35,8 +41,8 @@ const Search = styled("div")(({theme}) => ({
     backgroundColor: alpha(theme.palette.common.white, 0.25)
   },
   marginLeft: 0,
-  marginTop: '10px',
-  width: '100%',
+  marginTop: "10px",
+  width: "100%",
   height: 50,
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(1)
@@ -44,7 +50,7 @@ const Search = styled("div")(({theme}) => ({
   }
 }));
 
-const SearchIconWrapper = styled("div")(({theme}) => ({
+const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: "100%",
   position: "absolute",
@@ -54,7 +60,7 @@ const SearchIconWrapper = styled("div")(({theme}) => ({
   justifyContent: "center"
 }));
 
-const StyledInputBase = styled(InputBase)(({theme}) => ({
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
@@ -70,16 +76,31 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
   }
 }));
 
+// Modal Styling
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 600,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4
+};
+
 export default function OrgTable() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
   const organizations = useSelector(
     (state) => state.organizations.organizations
-  )
-  useEffect(() =>{
-    dispatch(
-      actions.fetchOrganizations()
-    )
-  }, [])
+  );
+  useEffect(() => {
+    dispatch(actions.fetchOrganizations());
+  }, []);
   return (
     <>
       <Box>
@@ -98,18 +119,20 @@ export default function OrgTable() {
             </Typography>
           </Grid>
           <Grid item sm={4} md={2} sx={{ marginTop: "20px" }}>
-          <Link
-                to={"/organizations/addorganization"}
-                style={{ textDecoration: "none" }}
-              >
-                <Typography
-                  align="left"
-                  sx={{ marginTop: "-10px", padding: "10px", display: "flex" }}
-                >
-                  <AddCircleIcon sx={{ color: "blue" }} />
-                  <Typography> Add Organization </Typography>
-                </Typography>
-              </Link>
+            <Button onClick={handleOpen}>
+              <AddCircleIcon sx={{ color: "blue" }} />
+              <Typography> Add Organization </Typography>
+            </Button>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <OrganizationForm/>
+              </Box>
+            </Modal>
           </Grid>
         </Grid>
 
@@ -187,7 +210,7 @@ export default function OrgTable() {
                           <Avatar
                             alt="Remy Sharp"
                             src="profile.jpg"
-                            sx={{mr:'10px'}}
+                            sx={{ mr: "10px" }}
                           />
                           <Typography sx={{ padding: "2px" }}>
                             {row.name}
@@ -213,7 +236,7 @@ export default function OrgTable() {
                           component="p"
                           sx={{ float: "right", mt: "10px" }}
                         >
-                         <Link>
+                          <Link>
                             <DeleteIcon />
                           </Link>
                           <SystemUpdateIcon />

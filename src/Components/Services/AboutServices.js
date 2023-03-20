@@ -9,11 +9,25 @@ import Box from "@mui/material/Box";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { useSelector, useDispatch } from 'react-redux'
+import {fetchService} from '../../store/services/slice.js'
+
 
 export default function AboutServices() {
-  const [service, setService] = useState([]);
+  // const [service, setService] = useState([]);
   const token = localStorage.getItem("token");
   const {id} = useParams();
+  const dispatch = useDispatch();
+  const service = useSelector(
+    (state) => state.services.service
+  )
+  const [serviceData, setServiceData] = useState([]);
+  useEffect(() => {
+    dispatch(
+      fetchService(id)
+    )
+  }, []);
+
   const handleDelete =(serviceId)=>{
     fetch( `http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/services/services/${id}/`,
     {
@@ -26,28 +40,28 @@ export default function AboutServices() {
     .then (res => res.json())
     .then ( window.location.href='/services')
   }
-  useEffect(() => {
-    fetch(
-      `http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/services/services/${id}/`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${token}`
-        }
-      }
-    )
-    .then(response => {
-        if (response.ok)
-        {
-          return (response.json())
-        }
-        throw response;
-      })
-    .then((data) => {
-      setService(data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   fetch(
+  //     `http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/services/services/${id}/`,
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Token ${token}`
+  //       }
+  //     }
+  //   )
+  //   .then(response => {
+  //       if (response.ok)
+  //       {
+  //         return (response.json())
+  //       }
+  //       throw response;
+  //     })
+  //   .then((data) => {
+  //     setService(data);
+  //   });
+  // }, []);
   console.log(service);
 
 

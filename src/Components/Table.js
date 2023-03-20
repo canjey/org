@@ -16,47 +16,38 @@ import { useState, useEffect } from "react";
 import Layout from "../Components/Layout";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import Modal from '@mui/material/Modal';
+import OrganizationForm from './AddOrganization/OrganizationForm'
+import Button from "@mui/material/Button";
 
 function OrgId() {
   const params = useParams();
   console.log(params);
 }
 
+// Modal Styling
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 600,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4
+};
+
 const OrgTable = () => {
   const organization = useSelector((state) => state);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   console.log(organization.allProducts);
   const token = localStorage.getItem("token");
   const [orgData, setOrgData] = useState([]);
-  // const fetchOrganizations = async () => {
-  //   const orgaData = await axios
-  //     .get("http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/organizations/organizations/", {
-  //       headers: {
-  //         Authorization: `token ${token}`
-  //       }
-  //     })
-      
-  //     .catch((err) => {
-  //       console.log("Err", err);
-  //     });
-  //     console.log(orgData)
 
-  //   //     )
-  // };
-  // useEffect(() => {
-  //   fetchOrganizations()
-  //   .then((response) => {
-  //     if (response.ok) {
-  //       console.log("hi");
-  //       return response.json();
-  //     }
-  //     throw response;
-  //     })
-  //   .then((data) => {
-  //     setOrgData(data);
-  //     console.log(data);
-  //   })
-
-  // }, []);
   useEffect(() => {
     fetch(
       "http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/organizations/organizations/",
@@ -112,18 +103,20 @@ const OrgTable = () => {
                 </Typography>
               </Link>
 
-              <Link
-                to={"/organizations/addorganization"}
-                style={{ textDecoration: "none" }}
-              >
-                <Typography
-                  align="left"
-                  sx={{ marginTop: "-10px", padding: "10px", display: "flex" }}
-                >
-                  <AddCircleIcon sx={{ color: "blue" }} />
-                  <Typography> Add Organizations </Typography>
-                </Typography>
-              </Link>
+              <Button onClick={handleOpen}>
+              <AddCircleIcon sx={{ color: "blue" }} />
+              <Typography> Add Organization </Typography>
+            </Button>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <OrganizationForm/>
+              </Box>
+            </Modal>
             </Typography>
           </Typography>
         </Box>

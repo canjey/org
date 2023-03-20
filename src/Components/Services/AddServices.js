@@ -52,7 +52,7 @@ export default function AddServicesForm() {
               marginTop: "60px"
             }}
           >
-            <Typography sx={{ ml: "20px" }}>Add User Form</Typography>
+            <Typography sx={{ ml: "20px" }}>Add Service Form</Typography>
             <form onSubmit={handleSubmit}>
               <Box>
                 <div
