@@ -10,32 +10,55 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import axiosInstance from '../../../axios.js'
+
 
 export default function ProfilePage() {
   const [profileData, setProfileData] = useState([]);
   const [organization, setOrganization] = useState([]);
   const [message, setMessage] = useState("");
   const [orgName, setOrgName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [location, setLocation] = useState("");
+
   const token = localStorage.getItem("token");
-  useEffect(() => {
-    fetch(
-      "http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/accounts/users/authenticated-user/",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Token ${token}`
-        }
-      }
-    )
-    .then(response => {
-      if (response.ok){
-        return response.json()
-      }
-      throw response;
+
+  const handleSubmit =(e) =>{
+    e.preventDefault()
+    axiosInstance().put('/accounts/users/authenticated-user', {
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      phone:phone,
+      location:location
     })
-      .then((data) => {
-        setProfileData(data.data);
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  useEffect(() => {
+    axiosInstance()
+      .get(
+        "/accounts/users/authenticated-user/"
+      )
+      .then(function (response) {
+        // handle success
+        console.log(response.data);
+        setProfileData(response.data.data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .finally(function () {
+        // always executed
       });
   }, []);
 
@@ -66,7 +89,7 @@ export default function ProfilePage() {
               }}
             >
               <Typography sx={{ ml: "20px" }}>Update Profile Information</Typography>
-              <form>
+              <form onSubmit={handleSubmit}>
                 <Box>
                   <div
                     style={{
@@ -75,14 +98,13 @@ export default function ProfilePage() {
                     }}
                   >
                     <TextField
-                      fullWidth
-                      
+                      fullWidth                      
                       id="outlined-required"
                       type="text"
                       name="first_name"
-                      value={profileData.first_name}
+                      valueDefault={profileData.first_name}
                       onChange={(e) =>{
-                        setProfileData(e.target.value)
+                        setFirstName(e.target.value)
                       }}
                     />
                     <TextField
@@ -91,7 +113,10 @@ export default function ProfilePage() {
                       id="outlined-required"
                       type="text"
                       name="last_name"
-                      value={profileData.last_name}
+                      valueDefault={profileData.last_name}
+                      onChange={(e) =>{
+                        setFirstName(e.target.value)
+                      }}
                     />
                     <TextField
                       

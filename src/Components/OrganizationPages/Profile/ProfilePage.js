@@ -10,31 +10,35 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import axiosInstance from '../../../axios.js'
+
 
 export default function ProfilePage() {
   const [profileData, setProfileData] = useState([]);
   const [organization, setOrganization] = useState([]);
   const [message, setMessage] = useState("");
   const token = localStorage.getItem("token");
+
+
   useEffect(() => {
-    fetch(
-      "http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/accounts/users/authenticated-user/",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Token ${token}`
-        }
-      }
-    )
-    .then(response => {
-      if (response.ok){
-        return response.json()
-      }
-      throw response;
-    })
-      .then((data) => {
-        setProfileData(data.data);
+    axiosInstance()
+      .get(
+        "/accounts/users/authenticated-user/"
+      )
+      .then(function (response) {
+        // handle success
+        console.log(response.data.data);
+        setProfileData(response.data.data);
+        console.log(profileData);
+
+
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .finally(function () {
+        // always executed
       });
   }, []);
 
@@ -65,7 +69,7 @@ export default function ProfilePage() {
               }}
             >
               <Typography sx={{ ml: "20px" }}>Profile Information</Typography>
-              <form>
+              <form >
                 <Box>
                   <div
                     style={{
@@ -112,7 +116,7 @@ export default function ProfilePage() {
                       fullWidth
                       id="outlined-required"
                       name="location"
-                      value={profileData.location}
+                      value={profileData.city}
                       type="text"
                       />
                     <TextField
