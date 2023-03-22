@@ -26,11 +26,15 @@ export const counterSlice = createSlice({
     setOrganizations: (state, action) => {
       state.organizations = action.payload;
     },
+    setOrganizationDashboard: (state, action) => {
+      state.organizations = action.payload;
+    }
   },
 });
 
 export const {  
-    setOrganizations 
+    setOrganizations,
+    setOrganizationDashboard,
 } = counterSlice.actions;
 
 

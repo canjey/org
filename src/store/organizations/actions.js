@@ -1,6 +1,7 @@
-import { setOrganizations } from './slice'
+import { setOrganizationDashboard, setOrganizations } from './slice'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { redirect } from "react-router-dom";
+import axiosInstance from "../../axios.js";
 
 export const fetchOrganizations = createAsyncThunk(
     'organizations/fetchAll',
@@ -28,3 +29,41 @@ export const fetchOrganizations = createAsyncThunk(
        
     }
 );
+
+export const fetchOrganizationDashboard = createAsyncThunk(
+    'organizationsDashboard/fetchAll',
+    async (id, thunkApi) => {
+        axiosInstance()
+        .get("/dashboard/organization")
+        .then(function (response) {
+          console.log(response);
+          console.log("hi");
+          thunkApi.dispatch(
+            setOrganizationDashboard(response.data)
+            )
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+)
+
+
+
+export const addOrganization = createAsyncThunk(
+    'addorganizations/fetchAll', 
+    async (_, thunkApi) => {
+        axiosInstance()
+        .post("/organizations/organizations/")
+        .then(function (response) {
+          console.log(response);
+          console.log("hi");
+          thunkApi.dispatch(
+            setOrganizations(response.data)
+          )
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+)

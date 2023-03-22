@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Stats from '../../Components/Stats.js'
+import Stats from '../../Components/Dashboard/Stats.js'
 import OrgTable from '../../Components/Organisation/OrgTable.js'
 import Layout from "../../Components/Layout";
 

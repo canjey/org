@@ -5,6 +5,7 @@ import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import Grid from "@mui/material/Grid";
+import axiosInstance from "../../axios.js";
 
 export default function OrganizationForm() {
   const [name, setName] = useState("");
@@ -17,23 +18,14 @@ export default function OrganizationForm() {
   const [message, setMessage] = useState("");
   const [file, setFile] = useState();
 
-  function handleChange(e){
+  function handleChange(e){ 
     setFile(e.target.files[0])
   }
 
   const handleSubmit = (e) => {
-    const token = localStorage.getItem("token");
     e.preventDefault();
-    let res = fetch(
-      "http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/organizations/organizations/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Token ${token}`,
-          // 'content-length': `${file.size}`
-        },
-        body: JSON.stringify({
+    axiosInstance()
+    .post("/organizations/organizations/", {
           name: name,
           phone: phone,
           city: city,
@@ -42,21 +34,13 @@ export default function OrganizationForm() {
           description: description,
           postal_address: postal_address,
           documents: []
-        })
-      }
-    )
-    .then((res) => res.json())
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
-
-    setName('');
-    setPhone('');
-    setPostal_Address('');
-    setCity('');
-    setDescription('');
-    setEmail('');
-    setMessage('');
-    setLocation('');
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 
     
   }; 

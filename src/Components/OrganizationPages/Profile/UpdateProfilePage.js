@@ -37,7 +37,7 @@ function ProfilePageForm({ profileData }) {
         location: location,
         country: country,
         postal_address: address,
-      })
+      }) 
       .then(function (response) {
         console.log(response);
       })
