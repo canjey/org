@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom";
 import axiosInstance from "../../../axios";
-import { setChangedPassword } from "../../../store/user/slice";
+import { postChangePassword, setChangedPassword } from "../../../store/user/slice";
 import { useDispatch } from "react-redux";
 
 export default function ChangePassword() {
@@ -34,20 +34,18 @@ export default function ChangePassword() {
       }
     )
       .then(response => response.json())
-      .then(data => setUser(data.data.email))
+      .then(data => setEmail(data.data.email))
     console.log(user)
   }, []);
 
   const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(
-      setChangedPassword()
-    )
-  }
-  );
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(
+      postChangePassword({email, old_password, password, password1})
+    )
 
     // let res = fetch(
     //   "http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/accounts/change-password",

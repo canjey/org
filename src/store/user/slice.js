@@ -44,9 +44,11 @@ export const fetchUser = createAsyncThunk(
 
 export const postChangePassword = createAsyncThunk(
     'changepassword',
-    async (_, thunkApi) => {
+    async (changePasswordData, thunkApi) => {
+        // console.log(_);
         axiosInstance()
-        .post("/accounts/change-password")
+        .post("/accounts/change-password", changePasswordData
+        )
         .then(function (response) {
             console.log(response);
             thunkApi.dispatch(
@@ -56,6 +58,7 @@ export const postChangePassword = createAsyncThunk(
         .catch(function (error) {
             console.log(error)
         });
+        
     }
 )
 
