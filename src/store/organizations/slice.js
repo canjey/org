@@ -27,7 +27,7 @@ export const counterSlice = createSlice({
       state.organizations = action.payload;
     },
     setOrganizationDashboard: (state, action) => {
-      state.organizations = action.payload;
+      state.organizationDashboard = action.payload;
     }
   },
 });

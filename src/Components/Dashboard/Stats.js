@@ -5,7 +5,6 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Grid from "@mui/material/Grid";
-import Paper from "@material-ui/core/Paper";
 import { useEffect } from "react";
 import {
   LineChart,
@@ -19,32 +18,20 @@ import {
   YAxis
 } from "recharts";
 
-import {
-  ArgumentAxis,
-  ValueAxis,
-  Chart,
-  BarSeries,
-  PieSeries,
-  Title
-} from "@devexpress/dx-react-chart-material-ui";
 import { actions } from "../../store/organizations";
 import { useSelector, useDispatch } from "react-redux";
-import { useSelect } from "@mui/base";
+
 
 export default function Stats() {
-  const data1 = [
-    { argument: "Monday", value: 30 },
-    { argument: "Tuesday", value: 20 },
-    { argument: "Wednesday", value: 10 },
-    { argument: "Thursday", value: 50 },
-    { argument: "Friday", value: 60 }
-  ];
-  const data = [{ name: "A", uv: 400, pv: 2400, amt: 2400 }, { name: "B", uv: 200, pv: 1200, amt: 2400 },
-  { name: "C", uv: 600, pv: 2400, amt: 240 }, { name: "D", uv: 100, pv: 200, amt: 200 }];
   const dispatch = useDispatch()
 
+  const data = [{ name: "A", uv: 400, pv: 2400, amt: 2400 }, { name: "B", uv: 200, pv: 1200, amt: 2400 },
+  { name: "C", uv: 600, pv: 2400, amt: 240 }, { name: "D", uv: 100, pv: 200, amt: 200 }];
+  
+
   const dashboardStats = useSelector(state => state.organizations.organizationDashboard)
-  console.log(dashboardStats.activeServices);
+  // console.log(dashboardStats);
+  // console.log(dashboardStats.activeServices);
 
   useEffect(() => {
     dispatch(actions.fetchOrganizationDashboard());
@@ -90,7 +77,7 @@ export default function Stats() {
                       component="div"
                       sx={{ textAlign: "center", ml: "10%" }}
                     >
-                      32
+                      {dashboardStats.activeServices.value}
                     </Typography>
                     <Typography
                       sx={{
@@ -104,7 +91,7 @@ export default function Stats() {
                       }}
                       color="text.secondary"
                     >
-                      +2.6%
+                      {dashboardStats.activeServices.trend}
                     </Typography>
                   </Typography>
                 </CardContent>
@@ -132,7 +119,7 @@ export default function Stats() {
                     component="div"
                     sx={{ display: "flex" }}
                   >
-                    32
+                    {dashboardStats.totalOrganizations.value}
                     <Typography
                       sx={{
                         mb: 1.5,
@@ -145,7 +132,7 @@ export default function Stats() {
                       }}
                       color="text.secondary"
                     >
-                      +2.6%
+                      {dashboardStats.totalOrganizations.trend}
                     </Typography>
                   </Typography>
                 </CardContent>
@@ -173,7 +160,7 @@ export default function Stats() {
                     component="div"
                     sx={{ display: "flex" }}
                   >
-                    32
+                    {dashboardStats.totalEarnings.value}
                     <Typography
                       sx={{
                         mb: 1.5,
@@ -186,7 +173,7 @@ export default function Stats() {
                       }}
                       color="text.secondary"
                     >
-                      +2.6%
+                      {dashboardStats.totalEarnings.trend}
                     </Typography>
                   </Typography>
                 </CardContent>
@@ -214,7 +201,7 @@ export default function Stats() {
                     component="div"
                     sx={{ display: "flex" }}
                   >
-                    32
+                    {dashboardStats.newOrganizations.value}
                     <Typography
                       sx={{
                         mb: 1.5,
@@ -227,7 +214,7 @@ export default function Stats() {
                       }}
                       color="text.secondary"
                     >
-                      +2.6%
+                      {dashboardStats.newOrganizations.trend}
                     </Typography>
                   </Typography>
                 </CardContent>

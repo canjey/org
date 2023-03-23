@@ -32,7 +32,7 @@ export const fetchOrganizations = createAsyncThunk(
 
 export const fetchOrganizationDashboard = createAsyncThunk(
     'organizationsDashboard/fetchAll',
-    async (id, thunkApi) => {
+    async (_, thunkApi) => {
         axiosInstance()
         .get("/dashboard/organization")
         .then(function (response) {

@@ -3,7 +3,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axiosInstance from "../../axios.js";
 
 const initialState = {
-    user: {}
+    user: {},
+    changePassword: [],
 };
 
 export const userSlice = createSlice({
@@ -13,13 +14,15 @@ export const userSlice = createSlice({
         setUser: (state, action) => {
             state.user = action.payload;
         },
+        setChangedPassword: (state, action) => {
+            state.changePassword = action.payload;
+        }
     },
 }); 
 
-export const {
-    setUser,
-} = userSlice.actions;
 
+
+// Actions
 export const fetchUser = createAsyncThunk(
     'user/fetchUser',
     async (_, thunkApi) => {
@@ -38,5 +41,28 @@ export const fetchUser = createAsyncThunk(
     }
 
 )
+
+export const postChangePassword = createAsyncThunk(
+    'changepassword',
+    async (_, thunkApi) => {
+        axiosInstance()
+        .post("/accounts/change-password")
+        .then(function (response) {
+            console.log(response);
+            thunkApi.dispatch(
+                setChangedPassword(response)
+            )
+        })
+        .catch(function (error) {
+            console.log(error)
+        });
+    }
+)
+
+
+export const {
+    setUser,
+    setChangedPassword
+} = userSlice.actions;
 
 export default userSlice.reducer;
