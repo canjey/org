@@ -105,7 +105,7 @@ export default function ChangePassword() {
                       label="Email Address"
                       type="email"
                       name="email"
-                      value={user}
+                      value={email}
                     />
                   </div>
                   <div className="fields">

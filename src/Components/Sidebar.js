@@ -124,12 +124,12 @@ export default function Sidebar() {
           <Avatar /> Profile
         </MenuItem>
         </Link> 
-        {/* <Link to={'/changePassword'} style={{textDecoration:'none',  color:'black'}}><MenuItem>
+        <Link to={'/changePassword'} style={{textDecoration:'none',  color:'black'}}><MenuItem>
           <Avatar /> Change Password
         </MenuItem>
-        </Link>  */}
+        </Link> 
 
-        <Button onClick={handleOpen}><Avatar />Change Password</Button>
+        {/* <Button onClick={handleOpen}><Avatar />Change Password</Button>
                       <Modal
                         open={open1}
                         onClose={handleClose1}
@@ -139,7 +139,7 @@ export default function Sidebar() {
                         <Box sx={style}>
                           <ChangePassword />
                         </Box>
-                      </Modal>
+                      </Modal> */}
         
         <Divider />
         <MenuItem>
