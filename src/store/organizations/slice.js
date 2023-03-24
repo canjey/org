@@ -16,6 +16,7 @@ const initialState = {
 
     }
   },
+  oneOrganization:[],
   organization: null
 };
 
@@ -28,6 +29,9 @@ export const counterSlice = createSlice({
     },
     setOrganizationDashboard: (state, action) => {
       state.organizationDashboard = action.payload;
+    },
+    deleteOrganization: (state, action) => {
+      state.oneOrganization = action.payload;
     }
   },
 });
@@ -35,6 +39,7 @@ export const counterSlice = createSlice({
 export const {  
     setOrganizations,
     setOrganizationDashboard,
+    deleteOrganization,
 } = counterSlice.actions;
 
 

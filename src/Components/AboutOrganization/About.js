@@ -16,6 +16,9 @@ import OrganizationUsers from "../../Containers/OrganizationUsers/index.js";
 import ServiceTable from "./Services.js";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import { useDispatch } from "react-redux";
+import { deleteOrganizations } from "../../store/organizations/actions.js";
 
 function handleUsers() {
   return <OrganizationUsers />;
@@ -32,11 +35,18 @@ export default function Stats() {
   const [value, setValue] = useState(0);
   const [table, setTable] = useState(true);
   const [tableData, setTableData] = useState("");
+  const dispatch = useDispatch();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
     handleDisplay()    
   };
+  const handleDelete = () => {
+    dispatch(
+      deleteOrganizations(id)
+
+    )
+  }
 
   const handleDisplay =(e)=>{
     e.preventDefault(false)
@@ -112,9 +122,18 @@ export default function Stats() {
         sx={{ flexGrow: 1, bgcolor: "background.default", p: 3, ml: "-20px" }}
       >
         <Toolbar />
-        <Typography variant="h4" sx={{ fontFamily: "inter", mt: "-80px" }}>
+        <Grid container sx={{ fontFamily: "inter", mt: "-80px" }}>
+        <Grid item xs={10}>
+        <Typography variant="h4" >
           {orgDetails.name} Account
         </Typography>
+        </Grid>
+        <Grid item xs={2}><Typography>
+          <Button onClick={()=>handleDelete(id)}>
+          <DeleteOutlineOutlinedIcon fontSize="medium" /> Delete Organization</Button></Typography></Grid>
+          
+          </Grid>
+
         <Box sx={{ marginTop: "30px" }}>
           <Grid container rowSpacing={2} columns={16} columnSpacing={4}>
             {data.map((data) => (
@@ -179,7 +198,7 @@ export default function Stats() {
         aria-label="scrollable auto tabs example"
       >
                 <Tab value="services" label=" Subscribed Services" />
-                <Tab label="Users" onClick={handleUsers()}/>
+                <Tab label="Users" onClick={()=> {handleUsers()}}/>
                 <Tab label="Invoices" />
               </Tabs>
             </Grid>

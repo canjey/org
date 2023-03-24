@@ -1,4 +1,4 @@
-import { setOrganizationDashboard, setOrganizations } from './slice'
+import { setOrganizationDashboard, setOrganizations, deleteOrganization } from './slice'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { redirect } from "react-router-dom";
 import axiosInstance from "../../axios.js";
@@ -65,5 +65,23 @@ export const addOrganization = createAsyncThunk(
         .catch(function (error) {
           console.log(error);
         });
+    }
+)
+
+export const deleteOrganizations = createAsyncThunk (
+    'deleteorganization/deleteOne',
+    async (id, thunkApi) => {
+        axiosInstance()
+        .delete(`/organizations/organizations/${id}/`)
+        .then(function (response) {
+            console.log(response)
+            thunkApi.dispatch(
+                deleteOrganization(response)
+
+            )
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
     }
 )
