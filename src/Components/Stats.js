@@ -37,6 +37,7 @@ export default function Stats() {
   ];
   const data = [{ name: "A", uv: 400, pv: 2400, amt: 2400 }, { name: "B", uv: 200, pv: 1200, amt: 2400 },
   { name: "C", uv: 600, pv: 2400, amt: 240 },  { name: "D", uv: 100, pv: 200, amt: 200 }];
+  
 
   return (
     <>
@@ -236,7 +237,7 @@ export default function Stats() {
                     color="text.secondary"
                     gutterBottom
                   >
-                    New Organisations
+                    Total Users
                   </Typography>
                   <Typography
                     variant="h5"

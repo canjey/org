@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axiosInstance from "../../axios.js";
 
 const initialState = {
-    user: {}
+    user: {},
 };
 
 export const userSlice = createSlice({
@@ -13,6 +13,7 @@ export const userSlice = createSlice({
         setUser: (state, action) => {
             state.user = action.payload;
         },
+        
     },
 }); 
 
@@ -38,5 +39,22 @@ export const fetchUser = createAsyncThunk(
     }
 
 )
+
+export const postUserData = createAsyncThunk(
+    'user/postUserData',
+    async (userData, thunkApi) => {
+        axiosInstance()
+        .put(`/accounts/users/${userData.id}/`, userData)             
+        .then(function(response){
+            console.log(response.data);
+            thunkApi.dispatch(
+                setUser(response.data)
+            )
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
+    }
+    )
 
 export default userSlice.reducer;

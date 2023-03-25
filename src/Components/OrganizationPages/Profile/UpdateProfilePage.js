@@ -11,6 +11,9 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import axiosInstance from "../../../axios.js";
+import {postUserData} from '../../../store/user/slice.js'
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 
 function ProfilePageForm({ profileData }) {
   const [message, setMessage] = useState("");
@@ -23,27 +26,18 @@ function ProfilePageForm({ profileData }) {
   const [country, setCountry] = useState(profileData.country);
   const [address, setAddress] = useState(profileData.postal_address);
   const [name, setName] = useState(profileData.name);
+  const dispatch = useDispatch();
+  const {id} = useParams();
+
+
 
   const token = localStorage.getItem("token");
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    axiosInstance()
-      .put(`/accounts/users/${profileData.id}/`, {
-        first_name: firstName,
-        last_name: lastName,
-        email: email,
-        phone: phone,
-        location: location,
-        country: country,
-        postal_address: address,
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    dispatch(
+      postUserData(id)
+    )
+ 
   };
   return (
     <>
@@ -151,7 +145,16 @@ function ProfilePageForm({ profileData }) {
             </div>
             <div sxtyle={{ marginLeft: "20%" }}>
               <Button
-                type="submit"
+              onClick=  {()=>dispatch(postUserData({
+                id: profileData.id,
+                first_name: firstName,
+                last_name: lastName,
+                email: email,
+                phone: phone,
+                location: location,
+                country: country,
+                postal_address: address,}))}
+                // type="submit"
                 variant="contained"
                 sx={{ color: "white" }}
               >
@@ -229,7 +232,7 @@ export default function UpdateProfilePage() {
                 marginTop: "60px"
               }}
             >
-              <Typography sx={{ ml: "20px" }}>
+              <Typography variant="h5" sx={{ ml: "20px" }}>
                 Update Profile Information
               </Typography>
               <ProfilePageForm profileData={profileData} />

@@ -53,9 +53,7 @@ export default function ProfilePage() {
       fetchUser()
     )
   }, []);
-  console.log(user.first_name);
-
-
+ 
   useEffect(() => {
     fetch(
       "http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/accounts/users/organization",
@@ -72,6 +70,10 @@ export default function ProfilePage() {
         setOrganization(data.data);
       });
   }, []);
+  if (!user){
+    return null
+  }
+  console.log(user.first_name);
   console.log(organization);
   return (
     <>
@@ -153,16 +155,7 @@ export default function ProfilePage() {
                       value={user.email}
                     />
                   </div>
-                  <div style={{ marginTop: "10px", display: "flex" }}>
-                    <TextField
-                      disabled
-                      fullWidth
-                      id="outlined-required"
-                      type="email"
-                      name="email"
-                      value={user.name}
-                    />
-                  </div>
+                  
                   <div
                     style={{
                       display: "flex",
