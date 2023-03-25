@@ -8,8 +8,9 @@ const initialState = {
     service: {
 
     },
+    addService: [],
 };
-
+ 
 
 export const serviceSlice = createSlice({
     name: 'services',
@@ -21,6 +22,9 @@ export const serviceSlice = createSlice({
         setService: (state, action) => {
             state.service = action.payload; 
         },
+        postService: (state, action) => {
+          state.addService = action.payload;
+        }
     },
     
 });
@@ -28,7 +32,8 @@ export const serviceSlice = createSlice({
 
 export const {
     setServices,
-    setService
+    setService,
+    postService,
 } = serviceSlice.actions;
 
 
@@ -50,6 +55,7 @@ export const fetchServices = createAsyncThunk(
     }
 )
 
+// Fetch one service
 export const fetchService = createAsyncThunk(
     'services/fetchOne',
     async (id, thunkApi) => {
@@ -66,6 +72,47 @@ export const fetchService = createAsyncThunk(
           console.log(error);
         });
     }
+)
+
+// Post services
+
+// export const postServices = createAsyncThunk(
+//     'services/post',
+//     async (serviceData, thunkApi) => {
+//       axiosInstance()
+//       .post('/services/services/', serviceData)
+//       .then(function(response) {
+//         console.log(serviceData)
+//         thunkApi.dispatch(
+//           postService(response)
+
+//         )
+//       })
+//       .catch(function (error) {
+//         console.log(error)
+//       })
+//     }
+
+// )
+
+export const postServices = createAsyncThunk(
+  'services/post',
+  async (serviceData, thunkApi) => {
+      // console.log(_);
+      axiosInstance()
+      .post('/services/services/', serviceData
+      )
+      .then(function (response) {
+          console.log(response);
+          thunkApi.dispatch(
+            postService(response)
+          )
+      })
+      .catch(function (error) {
+          console.log(error)
+      });
+      
+  }
 )
 
 export default serviceSlice.reducer;

@@ -11,19 +11,15 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
-import { Link, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import Layout from "../Components/Layout";
-import { useSelector } from "react-redux";
-import axios from "axios";
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import Modal from '@mui/material/Modal';
-import OrganizationForm from './AddOrganization/OrganizationForm'
+import OrganizationForm from '../AddOrganization/OrganizationForm'
 import Button from "@mui/material/Button";
+import { actions } from "../../store/organizations";
+import { useSelector, useDispatch } from "react-redux";
 
-function OrgId() {
-  const params = useParams();
-  console.log(params);
-}
+
 
 // Modal Styling
 
@@ -40,42 +36,26 @@ const style = {
 };
 
 const OrgTable = () => {
-  const organization = useSelector((state) => state);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  console.log(organization.allProducts);
-  const token = localStorage.getItem("token");
-  const [orgData, setOrgData] = useState([]);
+  const dispatch = useDispatch();
 
+  const organizations = useSelector(
+    (state) => state.organizations.organizations
+  );
+ console.log(organizations);
   useEffect(() => {
-    fetch(
-      "http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/organizations/organizations/",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Token ${token}`
-        }
-      }
-    )
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw response;
-      })
-      .then((data) => {
-        setOrgData(data);
-        console.log(data);
-      });
+    dispatch(actions.fetchOrganizations());
   }, []);
 
   return (
-    <>
+    <>  
       <Box component="main" sx={{ mt: "-10px" }}>
         <Box>
           <Typography
             align="left"
+            variant="h5"
             sx={{
               marginTop: "5px",
               padding: "10px",
@@ -94,29 +74,27 @@ const OrgTable = () => {
               }}
             >
               <Link to="./organizations" style={{ textDecoration: "none" }}>
-                <Typography
-                  align="left"
-                  sx={{ marginTop: "-10px", padding: "10px", display: "flex" }}
-                >
+
+                <Button>
                   <VisibilityOffIcon sx={{ color: "blue" }} />
                   <Typography> View All </Typography>
-                </Typography>
+                </Button>
               </Link>
 
               <Button onClick={handleOpen}>
-              <AddCircleIcon sx={{ color: "blue" }} />
-              <Typography> Add Organization </Typography>
-            </Button>
-            <Modal
-              open={open}
-              onClose={handleClose}
-              aria-labelledby="modal-modal-title"
-              aria-describedby="modal-modal-description"
-            >
-              <Box sx={style}>
-                <OrganizationForm/>
-              </Box>
-            </Modal>
+                <AddCircleIcon sx={{ color: "blue" }} />
+                <Typography> Add Organization </Typography>
+              </Button>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                  <OrganizationForm />
+                </Box>
+              </Modal>
             </Typography>
           </Typography>
         </Box>
@@ -136,10 +114,10 @@ const OrgTable = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {orgData.map((orgData) => (
-                <TableRow key={orgData.id}>
+              {organizations.map((organizations) => (
+                <TableRow key={organizations.id}>
                   <Link
-                    to={`/organizations/${orgData.id}/`}
+                    to={`/organizations/${organizations.id}/`}
                     style={{ textDecoration: "none" }}
                   >
                     <TableCell
@@ -153,17 +131,17 @@ const OrgTable = () => {
                         sx={{ mr: "10px" }}
                       />
                       <Typography>
-                        {orgData.name}
+                        {organizations.name}
                         <Typography sx={{ color: "#9F9595", fontSize: "10px" }}>
-                          {orgData.email}
+                          {organizations.email}
                         </Typography>
                       </Typography>
                     </TableCell>
                   </Link>
 
-                  <TableCell align="right">{orgData.location}</TableCell>
+                  <TableCell align="right">{organizations.location}</TableCell>
                   <TableCell align="right" sx={{ textAlign: "right" }}>
-                    {orgData.phone}
+                    {organizations.phone}
                   </TableCell>
                 </TableRow>
               ))}

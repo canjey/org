@@ -34,10 +34,23 @@ function ProfilePageForm({ profileData }) {
   const token = localStorage.getItem("token");
 
   const handleSubmit = (e) => {
-    dispatch(
-      postUserData(id)
-    )
- 
+    e.preventDefault();
+    axiosInstance()
+      .put(`/accounts/users/${profileData.id}/`, {
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        phone: phone,
+        location: location,
+        country: country,
+        postal_address: address,
+      }) 
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
   return (
     <>

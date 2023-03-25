@@ -5,12 +5,10 @@ import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
 import { Link } from "react-router-dom";
+import axiosInstance from "../../../axios";
+import { postChangePassword, setChangedPassword } from "../../../store/user/slice";
+import { useDispatch } from "react-redux";
 
 export default function ChangePassword() {
   const [email, setEmail] = useState("");
@@ -35,43 +33,50 @@ export default function ChangePassword() {
         }
       }
     )
-    .then(response => response.json())
-    .then(data => setUser(data.data.email))
+      .then(response => response.json())
+      .then(data => setEmail(data.data.email))
     console.log(user)
   }, []);
 
+  const dispatch = useDispatch()
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    let res = fetch(
-      "http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/accounts/change-password",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          email: user,
-          old_password: old_password,
-          password: password,
-          password1: password1
-        })
-      }
+    dispatch(
+      postChangePassword({email, old_password, password, password1})
     )
-      .then((response) => response.json())
-      .then((data) => {
-        setPasswordDetails(data.email);
-        if (data.email) {
-          window.alert("Password Changed Successfully");
-          window.location.href = "/";
-        } 
-        // window.alert("Invalid Data");
-      
-      });
-    setEmail("");
-    setOtp("");
-    setOldPassword("");
-    setPassword("");
-    setPassword1("");
+
+    // let res = fetch(
+    //   "http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/accounts/change-password",
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify({
+    //       email: user,
+    //       old_password: old_password,
+    //       password: password,
+    //       password1: password1
+    //     })
+    //   }
+    // )
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     setPasswordDetails(data.email);
+    //     if (data.email) {
+    //       window.alert("Password Changed Successfully");
+    //       window.location.href = "/";
+    //     } 
+    //     // window.alert("Invalid Data");
+
+    //   });
+    // setEmail("");
+    // setOtp("");
+    // setOldPassword("");
+    // setPassword("");
+    // setPassword1("");
   };
   return (
     <>
@@ -100,7 +105,7 @@ export default function ChangePassword() {
                       label="Email Address"
                       type="email"
                       name="email"
-                      value={user}            
+                      value={email}
                     />
                   </div>
                   <div className="fields">

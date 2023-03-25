@@ -20,11 +20,23 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import {List, ListItemButton, ListItemText} from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom'  
-
+import Modal from "@mui/material/Modal";
+import Button from "@mui/material/Button";
+import ChangePassword from './OrganizationPages/ChangePassword/ChangePassword';
 
 // import Stats from './Stats';
 export const drawerWidth = 240;
-
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 500,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4
+};
 
 export default function Sidebar() {
   const logout = () => {
@@ -40,6 +52,13 @@ export default function Sidebar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+    // Modal Code
+ 
+    const [open1, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose1 = () => setOpen(false);
+  
   return (
     <>
       <Box sx={{display: 'flex'}}>
@@ -104,11 +123,24 @@ export default function Sidebar() {
           <MenuItem>
           <Avatar /> Profile
         </MenuItem>
-        </Link>
+        </Link> 
         <Link to={'/changePassword'} style={{textDecoration:'none',  color:'black'}}><MenuItem>
           <Avatar /> Change Password
         </MenuItem>
-        </Link>
+        </Link> 
+
+        {/* <Button onClick={handleOpen}><Avatar />Change Password</Button>
+                      <Modal
+                        open={open1}
+                        onClose={handleClose1}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                      >
+                        <Box sx={style}>
+                          <ChangePassword />
+                        </Box>
+                      </Modal> */}
+        
         <Divider />
         <MenuItem>
           <ListItemIcon>
