@@ -47,36 +47,7 @@ export default function ChangePassword() {
       postChangePassword({email, old_password, password, password1})
     )
 
-    // let res = fetch(
-    //   "http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/accounts/change-password",
-    //   {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify({
-    //       email: user,
-    //       old_password: old_password,
-    //       password: password,
-    //       password1: password1
-    //     })
-    //   }
-    // )
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     setPasswordDetails(data.email);
-    //     if (data.email) {
-    //       window.alert("Password Changed Successfully");
-    //       window.location.href = "/";
-    //     } 
-    //     // window.alert("Invalid Data");
-
-    //   });
-    // setEmail("");
-    // setOtp("");
-    // setOldPassword("");
-    // setPassword("");
-    // setPassword1("");
+   
   };
   return (
     <>

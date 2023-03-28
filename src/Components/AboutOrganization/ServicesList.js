@@ -11,7 +11,7 @@ import { Link, useParams } from "react-router-dom";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { actions } from "../../store/organizations";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchServices, deleteServices } from "../../store/services/slice.js";
+import { fetchServices } from "../../store/services/slice.js";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -24,9 +24,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import SystemUpdateIcon from "@mui/icons-material/SystemUpdate";
 import Avatar from "@mui/material/Avatar";
 import Modal from "@mui/material/Modal";
-import AddServicesForm from "./AddServices.js";
-
-
+import AddServicesForm from "../Services/AddServices.js";
+import AboutServices from "../Services/AboutServices.js";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
 // Modal Style
 
@@ -35,12 +36,12 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 600,
+  width: 800,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
   p: 4
-}; 
+};
 
 function AboutService() {
   const [service, setService] = useState([]);
@@ -64,7 +65,7 @@ function AboutService() {
   return <>hi</>;
 }
 
-export default function Service() {
+export default function ServiceLists() {
   // Modal
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -74,31 +75,13 @@ export default function Service() {
   const dispatch = useDispatch();
   const services = useSelector((state) => state.services.services);
   const [serviceData, setServiceData] = useState([]);
-  const {id} = useParams();
   const token = localStorage.getItem("token");
   useEffect(() => {
     dispatch(fetchServices());
   }, []);
   console.log(serviceData);
-  // const handleDelete = () =>{
-  //   dispatch(deleteServices(id))
-  // }
   return (
     <>
-      <Button onClick={handleOpen}>
-        <AddCircleIcon sx={{ color: "blue" }} />
-        <Typography> Add services </Typography>
-      </Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <AddServicesForm />
-        </Box>
-      </Modal>
       <Box sx={{ mt: "5px", display: "flex", flexWrap: "wrap" }}>
         <Grid container>
           <Grid item sm={12}>
@@ -115,12 +98,37 @@ export default function Service() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
+                  {/* <Button onClick={handleOpen}>
+                    <AddCircleIcon sx={{ color: "blue" }} />
+                    <Typography> Add services </Typography>
+                  </Button> */}
+                  <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                  >
+                    <Box sx={style}>
+                      <AddServicesForm />
+                    </Box>
+                  </Modal>
                   {services.map((services) => (
                     <TableRow key={services.id}>
                       <Link
+                        // onClick={handleOpen}
                         to={`/services/services/${services.id}/`}
                         style={{ textDecoration: "none" }}
                       >
+                        <Modal
+                          open={open}
+                          onClose={handleClose}
+                          aria-labelledby="modal-modal-title"
+                          aria-describedby="modal-modal-description"
+                        >
+                          <Box sx={style}>
+                            <AboutServices />
+                          </Box>
+                        </Modal>
                         <TableCell
                           component="th"
                           scope="row"
@@ -144,7 +152,7 @@ export default function Service() {
                             </Typography>
                           </Typography>
                         </TableCell>
-                        </Link>
+                      </Link>
                       <TableCell align="right">12/12/2022</TableCell>
                       <TableCell align="right">1100 /=</TableCell>
                       <TableCell align="right">4</TableCell>
@@ -155,15 +163,25 @@ export default function Service() {
                           component="p"
                           sx={{ float: "right", mt: "10px" }}
                         >
-                         
-                            <DeleteIcon />
-                         
-                          <SystemUpdateIcon />
+                          <Button>
+                            <ShoppingCartOutlinedIcon />
+                          </Button>
+                          <Button size="medium">
+                            <VisibilityOutlinedIcon fontSize="large" />
+                            <Modal
+                              open={open}
+                              onClose={handleClose}
+                              aria-labelledby="modal-modal-title"
+                              aria-describedby="modal-modal-description"
+                            >
+                              <Box sx={style}>
+                                <AboutServices />
+                              </Box>
+                            </Modal>
+                          </Button>
                         </Typography>
                       </TableCell>
-                      
                     </TableRow>
-
                   ))}
                 </TableBody>
               </Table>
