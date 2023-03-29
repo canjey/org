@@ -8,7 +8,8 @@ const initialState = {
     service: {
 
     },
-    addService: [],
+    addService:[],
+    deleteServiceDetails: [],
 };
  
 
@@ -24,6 +25,9 @@ export const serviceSlice = createSlice({
         },
         postService: (state, action) => {
           state.addService = action.payload;
+        },
+        deleteService: (state, action) => {
+          state.deleteServiceDetails = action.payload;
         }
     },
     
@@ -34,6 +38,7 @@ export const {
     setServices,
     setService,
     postService,
+    deleteService,
 } = serviceSlice.actions;
 
 
@@ -72,40 +77,20 @@ export const fetchService = createAsyncThunk(
           console.log(error);
         });
     }
-)
+) 
 
-// Post services
-
-// export const postServices = createAsyncThunk(
-//     'services/post',
-//     async (serviceData, thunkApi) => {
-//       axiosInstance()
-//       .post('/services/services/', serviceData)
-//       .then(function(response) {
-//         console.log(serviceData)
-//         thunkApi.dispatch(
-//           postService(response)
-
-//         )
-//       })
-//       .catch(function (error) {
-//         console.log(error)
-//       })
-//     }
-
-// )
 
 export const postServices = createAsyncThunk(
   'services/post',
-  async (serviceData, thunkApi) => {
-      // console.log(_);
+  async (_, thunkApi) => {
+      console.log(_);
       axiosInstance()
-      .post('/services/services/', serviceData
+      .post('/services/services/', _
       )
       .then(function (response) {
           console.log(response);
           thunkApi.dispatch(
-            postService(response)
+            fetchServices(response)
           )
       })
       .catch(function (error) {
@@ -114,6 +99,29 @@ export const postServices = createAsyncThunk(
       
   }
 )
+
+// Delete Services
+
+export const deleteServices = createAsyncThunk(
+  'deleteService',
+  async (id, thunkApi) => {
+      console.log(id);
+      axiosInstance()
+      .delete(`/services/services/${id}/`
+      )
+      .then(function (response) {
+          console.log("response");
+          thunkApi.dispatch(
+            fetchServices(response)
+          )
+      })
+      .catch(function (error) {
+          console.log(error)
+      });
+      
+  }
+)
+
 
 export default serviceSlice.reducer;
 

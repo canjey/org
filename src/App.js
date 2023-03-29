@@ -17,7 +17,7 @@ import AddUsers from './Containers/AddUsers';
 import OrganizationUsers from './Containers/OrganizationUsers';
 import Subscribed from './Containers/SubscribedServices';
 import UpdateOrganization from './Containers/UpdateOrganization';
-
+import ServiceList from './Containers/AddOrganizationServices';
 import AddServices from './Containers/AddServices'
 import AboutServicesDetails from './Containers/AboutServices'
 import NotFound from './Components/Utilities/404.js'
@@ -66,7 +66,6 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/organizations" element={<Organisation />} />
-            <Route path="/services" element={<Services />} />
 
             {/* Organization Pages */}
             <Route path="/organizations/addorganization" element={<AddOrganization />} />
@@ -76,15 +75,21 @@ export default function App() {
             <Route path="/organizations/:id/adduser" element={<AddUsers />} />
             <Route path="/organizations/:id/users" element={<OrganizationUsers />} />
             <Route path="/organizations/:id/services" element={<Subscribed />} />
+            <Route path="/organizations/addservices" element={<ServiceList />} />
 
-            <Route path="/services/addservices/" element={<AddServices />} />
-            <Route path="/services/aboutservices/:id" element={<AboutServicesDetails />} />
 
             {/* Authentication */}
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/updateProfile" element={<UpdateProfile />} />
             <Route path="/changePassword" element={<PasswordChange />} />
+
+            {/* Services Pages */}
+            <Route path="/services" element={<Services />} />
+            <Route path="/services/addservices/" element={<AddServices />} />
+            <Route path="/services/services/:id" element={<AboutServicesDetails />} />
+
+
 
             {/* Not found */}
             <Route path="*" element={<NotFound />} />
