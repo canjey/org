@@ -29,60 +29,10 @@ function createData(name, calories, fat) {
 }
 
 
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9)
-];
 
-const Search = styled("div")(({theme}) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  borderStyle: "groove",
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25)
-  },
-  marginLeft: 0,
-  marginTop: '10px',
-  width: '100%',
-  height: 50,
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(1)
-    // width: 'auto',
-  }
-}));
-
-const SearchIconWrapper = styled("div")(({theme}) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center"
-}));
-
-const StyledInputBase = styled(InputBase)(({theme}) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "20ch"
-      }
-    }
-  }
-}));
 const token = localStorage.getItem('token');
 
-export default function ServiceTable() {
+export default function UserTable() {
   const [users, setUserData] = useState([]);
   const token = localStorage.getItem('token');
   const {id} = useParams();
@@ -128,19 +78,7 @@ export default function ServiceTable() {
 
         <Box>
           <Grid container >
-            
-            {/* <Grid item xs={12} md={10} sx={{display:'flex', justifyContent:'space-evenly' }}>
-              <Link to='./subscribed'><Button  size={"medium"} variant={"outlined"} startIcon={<FilterAltIcon sx={{width: "20px"}}/>}>
-                Subscribed Services
-              </Button>
-              </Link>
-              <Link to='.'><Button  size={"medium"} variant={"outlined"} startIcon={<AttachFileIcon sx={{width: "20px"}}/>}>
-                Users
-              </Button></Link>
-              <Link to=''><Button  size={"medium"} variant={"outlined"} startIcon={<FilterAltIcon sx={{width: "20px"}}/>}>
-                Invoices
-              </Button></Link>
-            </Grid> */}
+        
           </Grid>
           <Typography component="p" sx={{float:'right', mt:'-30px'}}>
           <Link

@@ -79,6 +79,11 @@ export const fetchService = createAsyncThunk(
     }
 ) 
 
+<<<<<<< Updated upstream
+=======
+// Post services
+
+>>>>>>> Stashed changes
 
 export const postServices = createAsyncThunk(
   'services/post',
