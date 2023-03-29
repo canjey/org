@@ -12,43 +12,22 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import axiosInstance from "../../axios";
 import { useDispatch } from "react-redux";
-import { postService } from "../../store/services/slice";
+import { postServices } from "../../store/services/slice";
 
 export default function AddServicesForm() {
-  const [serviceName, setServiceName] = useState("");
-  const [serviceDescription, setServiceDescription] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
   const dispatch = useDispatch()
 
 
   const handleSubmit = (e) => {
-
+    e.preventDefault()
     dispatch(
-      postService({serviceName, serviceDescription})
+      postServices({name, description})
 
     )
-    // const token = localStorage.getItem('token');
-    // e.preventDefault();
-    // let res = fetch("http://m-subscribe-dev.eba-kpdc2e68.eu-central-1.elasticbeanstalk.com/services/services/", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Authorization": `Token ${token}`
-    //   },
-    //   body: JSON.stringify({
-    //     name: serviceName,
-    //     description: serviceDescription,
-
-
-    //   })
-    // });
-    // serviceName("");
-    // serviceDescription("");
-
-    // let resJson = res.json();
-    // if (res.status === 201) {
-    //   console.log("Submitted");
-    //   window.location.href = "/organizations";
-    // }
+    console.log(name);
+    
   };
 
   return (
@@ -75,8 +54,8 @@ export default function AddServicesForm() {
                     label="Service Name"
                     type="text"
                     name="name"
-                    value={serviceName}
-                    onChange={(e) => setServiceName(e.target.value)}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                   />
                   <TextField
                     fullWidth
@@ -85,8 +64,8 @@ export default function AddServicesForm() {
                     label="Service Description"
                     type="text"
                     name="description"
-                    value={serviceDescription}
-                    onChange={(e) => setServiceDescription(e.target.value)}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                   />
                 </div>
 
